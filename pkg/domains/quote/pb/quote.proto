@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pb;
+option go_package = "github.com/facily-tech/go-scaffold/pkg/domains/quote/pb";
+
+service QuoteService {
+    rpc FindByID(FindRequest) returns (FindResponse);
+    rpc Upsert(UpsertRequest) returns (UpsertResponse);
+    rpc Delete(DeleteRequest) returns (Error);
+}
+
+message Error {
+    string error = 1;
+}
+
+message DeleteRequest {
+    string id = 1; 
+}
+
+message FindRequest {
+    string id = 1; 
+}
+
+message UpsertRequest {
+    string id = 1;
+    string content = 2;
+}
+
+message FindResponse {
+    string id = 1;
+    string content = 2;
+    string error = 3;
+}
+
+message UpsertResponse {
+    string id = 1;
+    string content = 2;
+    string error = 3;
+}

@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  api:
+    container_name: go-scaffold
+    build:
+      context: ./../
+      target: debug
+      dockerfile: ./build/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/go/src/github.com/facily-tech/go-scaffold
+    ports:
+      - "8080:8080"
+      - "40000:40000"
+    env_file:
+      - ./../env/application.env
+
+  postgres:
+    image: postgres:13-alpine
+    container_name: go-scaffold-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - go-scaffold-postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: goscaffold
+      POSTGRES_USER: 76F96CAB-7174-4B5E-A17F-1DB27B96B285
+      POSTGRES_PASSWORD: 1138A746-969D-46D7-813D-B135CB17A5A2
+
+volumes:
+  go-scaffold-postgres: {}

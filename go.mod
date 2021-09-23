@@ -3,6 +3,7 @@ module github.com/facily-tech/go-scaffold
 go 1.17
 
 require (
+	github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721
 	github.com/go-chi/chi/v5 v5.0.4
 	github.com/go-kit/kit v0.11.0
 	github.com/google/uuid v1.3.0

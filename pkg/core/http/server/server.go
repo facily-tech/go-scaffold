@@ -74,5 +74,10 @@ func startingMessage(ctx context.Context, where string, log *zap.Logger) {
 		log.Warn("could not get startedTime time")
 	}
 
-	log.Info("Starting API Server", zap.Time("start time", t), zap.String("version", v.GitCommitHash))
+	log.Info(
+		"Starting API Server",
+		zap.String("bind", where),
+		zap.Time("start time", t),
+		zap.String("version", v.GitCommitHash),
+	)
 }

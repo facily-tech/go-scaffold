@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 	"github.com/google/uuid"
+	"github.com/pkg/errors"
 )
 
 type FindByIDRequest struct {
@@ -32,7 +33,11 @@ type JSONResponse struct {
 
 func FindByID(svc ServiceI) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(FindByIDRequest)
+		req, ok := request.(FindByIDRequest)
+		if !ok {
+			return nil, errors.Wrap(ErrTypeAssertion, "cannot convert request->FindByIDRequest")
+		}
+
 		q, err := svc.FindByID(ctx, req.ID)
 		if err != nil {
 			return nil, err
@@ -44,7 +49,10 @@ func FindByID(svc ServiceI) endpoint.Endpoint {
 
 func Upsert(svc ServiceI) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(UpsertRequest)
+		req, ok := request.(UpsertRequest)
+		if !ok {
+			return nil, errors.Wrap(ErrTypeAssertion, "cannot convert request->UpsertRequest")
+		}
 
 		q, err := NewQuote(req.ID, req.Content)
 		if err != nil {
@@ -61,7 +69,10 @@ func Upsert(svc ServiceI) endpoint.Endpoint {
 
 func DeleteByID(svc ServiceI) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(DeleteRequest)
+		req, ok := request.(DeleteRequest)
+		if !ok {
+			return nil, errors.Wrap(ErrTypeAssertion, "cannot convert request->Delete")
+		}
 
 		// nothing doing anything with error for now
 		_ = svc.Delete(ctx, req.ID)

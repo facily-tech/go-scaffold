@@ -9,7 +9,15 @@ import (
 )
 
 type RepositoryI interface {
+	Querier
+	Execer
+}
+
+type Querier interface {
 	FindByID(context.Context, uuid.UUID) (Quote, error)
+}
+
+type Execer interface {
 	Upsert(context.Context, *Quote) error
 	Delete(context.Context, uuid.UUID) error
 }

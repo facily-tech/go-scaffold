@@ -10,6 +10,10 @@ lint:
 api:
 	@go run $(LD_FLAGS) cmd/api/main.go 
 
+.PHONY: grpc
+grpc:
+	@go run $(LD_FLAGS) cmd/grpc/main.go 
+
 .PHONY: build
 build:
 	@go build -o ./bin/api $(LD_FLAGS) ./cmd/api

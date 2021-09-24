@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
-	"github.com/facily-tech/go-scaffold/pkg/domains/quote/pb"
+	pb "github.com/facily-tech/proto-examples/go-scaffold/build/go/quote"
 	grpctransport "github.com/go-kit/kit/transport/grpc"
 	"github.com/google/uuid"
 )
@@ -44,10 +44,6 @@ func (s *grpcServer) FindByID(ctx context.Context, req *pb.FindRequest) (*pb.Fin
 	resp := &pb.FindResponse{Id: findResp.Id, Content: findResp.Content, Error: findResp.Error}
 
 	return resp, nil
-
-	// r := rep.(pb.FindResponse)
-
-	// return &r, nil
 }
 
 func (s *grpcServer) Upsert(ctx context.Context, req *pb.UpsertRequest) (*pb.UpsertResponse, error) {

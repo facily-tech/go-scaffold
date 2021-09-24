@@ -82,10 +82,10 @@ type codeHTTP struct {
 	int
 }
 
-func (c codeHTTP) encodeResponse(_ context.Context, w stdHTTP.ResponseWriter, response interface{}) error {
+func (c codeHTTP) encodeResponse(_ context.Context, w stdHTTP.ResponseWriter, input interface{}) error {
 	w.Header().Set("Content-type", "application/json; charset=UTF-8")
 	w.WriteHeader(c.int)
-	return json.NewEncoder(w).Encode(response)
+	return json.NewEncoder(w).Encode(input)
 }
 
 func errorHandler(_ context.Context, err error, w stdHTTP.ResponseWriter) {

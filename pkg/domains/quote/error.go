@@ -17,6 +17,8 @@ var (
 	ErrNew = errors.New("unable to create new quote")
 	// ErrEmptyRepository repository cannot be nil
 	ErrEmptyRepository = errors.New("empty repository")
+	// ErrTypeAssertion arises while trying to perform interface{}.(T)
+	ErrTypeAssertion = errors.New("unable to execute type assertion")
 )
 
 type errorResponse struct {

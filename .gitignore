@@ -21,3 +21,4 @@ bin/
 internal/dev.env
 .vscode
 *.pb.go
+*.env

@@ -4,7 +4,7 @@ A simple golang scaffolding to help me to create new api projects or workers wit
 
 ## Patterns
 
-* Struct folder Layut: (Modern Go Application)[https://github.com/sagikazarmark/modern-go-application], (Golang Standard Layout)[https://github.com/golang-standards/project-layout];
+* Struct folder Layout: (Modern Go Application)[https://github.com/sagikazarmark/modern-go-application], (Golang Standard Layout)[https://github.com/golang-standards/project-layout];
 
 ## Code flow
 

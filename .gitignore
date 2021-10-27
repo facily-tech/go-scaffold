@@ -24,3 +24,4 @@ internal/dev.env
 *.env
 
 .DS_Store
+.editorconfig

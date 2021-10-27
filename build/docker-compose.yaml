@@ -12,7 +12,6 @@ services:
       - ./:/go/src/github.com/facily-tech/go-scaffold
     ports:
       - "8080:8080"
-      - "40000:40000"
     env_file:
       - ./../env/application.env
 

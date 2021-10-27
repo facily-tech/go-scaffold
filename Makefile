@@ -40,4 +40,4 @@ cover: test
 
 .PHONY: stress
 stress:
-	@k6 run _tests/stress/httpload.js
+	@k6 run _test/stress/httpload.js

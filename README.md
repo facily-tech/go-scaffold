@@ -6,3 +6,6 @@ A simple golang scaffolding to help me to create new api projects or workers wit
 
 DOCKER_BUILDKIT=1
 
+## Code flow
+
+![alt text](https://github.com/facily-tech/go-scaffold/blob/main/architecture.drawio.svg?raw=true)

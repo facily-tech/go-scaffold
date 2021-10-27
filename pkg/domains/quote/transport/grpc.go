@@ -40,7 +40,7 @@ func (s *grpcServer) FindByID(ctx context.Context, req *pb.FindRequest) (*pb.Fin
 		return nil, err
 	}
 
-	findResp := rep.(pb.FindResponse) //nolint:govet,copylock
+	findResp := rep.(pb.FindResponse) //nolint:govet
 	resp := &pb.FindResponse{Id: findResp.Id, Content: findResp.Content, Error: findResp.Error}
 
 	return resp, nil

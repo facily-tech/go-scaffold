@@ -29,3 +29,15 @@ docker:
 .PHONY: generate
 generate:
 	@go generate ./...
+
+.PHONY: test
+test:
+	@go test -coverpkg ./... -race -coverprofile coverage.out ./...
+
+.PHONY: cover
+cover: test
+	@go tool cover -html=coverage.out
+
+.PHONY: stress
+stress:
+	@k6 run _test/stress/httpload.js

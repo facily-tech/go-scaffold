@@ -22,3 +22,5 @@ internal/dev.env
 .vscode
 *.pb.go
 *.env
+
+.DS_Store

@@ -1,4 +1,4 @@
-package quote
+package models
 
 import (
 	"github.com/google/uuid"
@@ -9,6 +9,8 @@ type Quote struct {
 	ID      uuid.UUID
 	Content string
 }
+
+var TestQuote Quote = Quote{ID: uuid.New(), Content: "IRC is just multiplayer notepad."}
 
 func NewQuote(id *uuid.UUID, content string) (Quote, error) {
 	if content == "" {

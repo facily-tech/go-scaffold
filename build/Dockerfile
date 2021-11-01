@@ -1,20 +1,22 @@
-FROM golang:1.17-alpine AS builder
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.202.5/containers/go/.devcontainer/base.Dockerfile
 
-WORKDIR /api
-RUN apk add --no-cache git make
+ARG VARIANT
+ARG NODE_VERSION
+FROM mcr.microsoft.com/vscode/devcontainers/go:0-${VARIANT}
 
-COPY go.mod go.sum /
-RUN go mod download
+# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
+ARG NODE_VERSION="none"
+RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
-COPY . .
-RUN make build
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-# runner
+# go hot reload with air
+RUN curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
 
-FROM alpine as runner
-WORKDIR /go/bin
+# [Optional] Uncomment the next line to use go get to install anything else you need
+# RUN go get -x <your-dependency-or-tool>
 
-COPY --from=builder /api/bin/api .
-EXPOSE 8080
-
-ENTRYPOINT /go/bin/api
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1

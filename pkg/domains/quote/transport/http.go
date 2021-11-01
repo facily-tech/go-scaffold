@@ -90,6 +90,7 @@ func (c codeHTTP) encodeResponse(_ context.Context, w stdHTTP.ResponseWriter, in
 
 func errorHandler(_ context.Context, err error, w stdHTTP.ResponseWriter) {
 	resp, code := quote.RESTErrorBussines.ErrorProcess(err)
+	// TODO include logging
 
 	w.WriteHeader(code)
 	if err := json.NewEncoder(w).Encode(map[string]string{"error": resp}); err != nil {

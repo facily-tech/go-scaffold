@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
 	"github.com/google/uuid"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -66,18 +67,18 @@ func TestCountMetric_FindByID(t *testing.T) {
 		name   string
 		fields fields
 		args   args
-		want   Quote
+		want   models.Quote
 		init   func(ctx context.Context, id uuid.UUID)
 		err    error
 	}{
 		{
 			name:   "success, call find",
 			fields: fields{count: counter, next: service},
-			args:   args{ctx: context.Background(), id: testQuote.ID},
+			args:   args{ctx: context.Background(), id: models.TestQuote.ID},
 			init: func(ctx context.Context, id uuid.UUID) {
-				service.On_FindByID().Args(ctx, id).Rets(testQuote, nil).Times(1)
+				service.On_FindByID().Args(ctx, id).Rets(models.TestQuote, nil).Times(1)
 			},
-			want: testQuote,
+			want: models.TestQuote,
 			err:  nil,
 		},
 	}
@@ -105,20 +106,20 @@ func TestCountMetric_Upsert(t *testing.T) {
 	}
 	type args struct {
 		ctx context.Context
-		q   *Quote
+		q   *models.Quote
 	}
 	tests := []struct {
 		name   string
 		fields fields
 		args   args
-		init   func(ctx context.Context, q *Quote)
+		init   func(ctx context.Context, q *models.Quote)
 		err    error
 	}{
 		{
 			name:   "success, call upsert and increase prometheus counter",
 			fields: fields{count: counter, next: service},
-			args:   args{ctx: context.Background(), q: &testQuote},
-			init: func(ctx context.Context, q *Quote) {
+			args:   args{ctx: context.Background(), q: &models.TestQuote},
+			init: func(ctx context.Context, q *models.Quote) {
 				service.On_Upsert().Args(ctx, q).Rets(nil).Times(1)
 			},
 			err: nil,
@@ -159,7 +160,7 @@ func TestCountMetric_Delete(t *testing.T) {
 		{
 			name:   "success, call Delete",
 			fields: fields{count: counter, next: service},
-			args:   args{ctx: context.Background(), id: testQuote.ID},
+			args:   args{ctx: context.Background(), id: models.TestQuote.ID},
 			init: func(c context.Context, u uuid.UUID) {
 				service.On_Delete().Args(c, u).Rets(nil).Times(1)
 			},

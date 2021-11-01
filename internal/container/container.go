@@ -3,21 +3,20 @@ package container
 import (
 	"context"
 	"embed"
+	"os"
 
-	"github.com/facily-tech/go-scaffold/pkg/core/env"
 	"github.com/facily-tech/go-scaffold/pkg/core/log"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/repository/sql"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
-	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
 
 // Components are a like service, but it doesn't include business case
 // Or domains, but likely used by multiple domains
 type components struct {
-	Viper *viper.Viper
-	Log   *zap.Logger
+	Log *zap.Logger
 	// Include your new components bellow
 }
 
@@ -39,7 +38,12 @@ func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, erro
 		return nil, nil, err
 	}
 
-	quoteService, err := quote.NewService(quote.NewRepository())
+	// TODO sql.MakeConfig
+	repository, err := sql.NewAndMigrate(ctx, os.Getenv("DB_DSN"))
+	if err != nil {
+		return nil, nil, err
+	}
+	quoteService, err := quote.NewService(repository)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -63,12 +67,7 @@ func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, erro
 	return ctx, &dep, err
 }
 
-func setupComponents(_ context.Context, embedFS embed.FS) (*components, error) {
-	vip, err := env.ViperConfig(embedFS)
-	if err != nil {
-		return nil, err
-	}
-
+func setupComponents(_ context.Context, _ embed.FS) (*components, error) {
 	log, err := log.NewLogger(true)
 	if err != nil {
 		return nil, err
@@ -76,7 +75,6 @@ func setupComponents(_ context.Context, embedFS embed.FS) (*components, error) {
 
 	return &components{
 		// include components initialized above here
-		Viper: vip,
-		Log:   log,
+		Log: log,
 	}, nil
 }

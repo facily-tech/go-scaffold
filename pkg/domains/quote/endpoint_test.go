@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"testing"
 
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -24,27 +25,27 @@ func TestFindByID(t *testing.T) {
 		{
 			name: "success",
 			init: func(s *ServiceI_Mock, ctx context.Context) {
-				s.On_FindByID().Args(ctx, testQuote.ID).Rets(testQuote, nil)
+				s.On_FindByID().Args(ctx, models.TestQuote.ID).Rets(models.TestQuote, nil)
 			},
 			args: args{
 				svc:     NewServiceI_Mock(t),
-				request: FindByIDRequest{ID: testQuote.ID},
+				request: FindByIDRequest{ID: models.TestQuote.ID},
 				ctx:     context.Background(),
 			},
-			response: JSONResponse{
-				ID:      &testQuote.ID,
-				Content: testQuote.Content,
+			response: models.JSONResponse{
+				ID:      &models.TestQuote.ID,
+				Content: models.TestQuote.Content,
 			},
 		},
 		{
 			name: "fail, returning error",
 			init: func(s *ServiceI_Mock, ctx context.Context) {
-				s.On_FindByID().Args(ctx, testQuote.ID).Rets(Quote{}, sql.ErrNoRows)
+				s.On_FindByID().Args(ctx, models.TestQuote.ID).Rets(models.Quote{}, sql.ErrNoRows)
 			},
 			err: sql.ErrNoRows,
 			args: args{
 				svc:     NewServiceI_Mock(t),
-				request: FindByIDRequest{ID: testQuote.ID},
+				request: FindByIDRequest{ID: models.TestQuote.ID},
 				ctx:     context.Background(),
 			},
 			response: nil,
@@ -76,27 +77,27 @@ func TestUpsert(t *testing.T) {
 		{
 			name: "success",
 			init: func(s *ServiceI_Mock, ctx context.Context) {
-				s.On_Upsert().Args(ctx, &testQuote).Rets(nil)
+				s.On_Upsert().Args(ctx, &models.TestQuote).Rets(nil)
 			},
 			args: args{
 				svc:     NewServiceI_Mock(t),
-				request: UpsertRequest{JSONRequest: JSONRequest{ID: &testQuote.ID, Content: testQuote.Content}},
+				request: UpsertRequest{JSONRequest: JSONRequest{ID: &models.TestQuote.ID, Content: models.TestQuote.Content}},
 				ctx:     context.Background(),
 			},
-			response: JSONResponse{
-				ID:      &testQuote.ID,
-				Content: testQuote.Content,
+			response: models.JSONResponse{
+				ID:      &models.TestQuote.ID,
+				Content: models.TestQuote.Content,
 			},
 		},
 		{
 			name: "fail, empty quote content",
 			init: func(s *ServiceI_Mock, ctx context.Context) {
-				s.On_Upsert().Args(ctx, &Quote{ID: testQuote.ID}).Rets(sql.ErrNoRows)
+				s.On_Upsert().Args(ctx, &models.Quote{ID: models.TestQuote.ID}).Rets(sql.ErrNoRows)
 			},
-			err: ErrNew,
+			err: models.ErrNew,
 			args: args{
 				svc:     NewServiceI_Mock(t),
-				request: UpsertRequest{JSONRequest: JSONRequest{ID: &testQuote.ID, Content: ""}},
+				request: UpsertRequest{JSONRequest: JSONRequest{ID: &models.TestQuote.ID, Content: ""}},
 				ctx:     context.Background(),
 			},
 			response: nil,
@@ -128,11 +129,11 @@ func TestDeleteByID(t *testing.T) {
 		{
 			name: "success",
 			init: func(s *ServiceI_Mock, ctx context.Context) {
-				s.On_Delete().Args(ctx, testQuote.ID).Rets(nil)
+				s.On_Delete().Args(ctx, models.TestQuote.ID).Rets(nil)
 			},
 			args: args{
 				svc:     NewServiceI_Mock(t),
-				request: DeleteRequest{ID: testQuote.ID},
+				request: DeleteRequest{ID: models.TestQuote.ID},
 				ctx:     context.Background(),
 			},
 			response: nil,

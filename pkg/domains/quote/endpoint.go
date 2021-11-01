@@ -3,6 +3,7 @@ package quote
 import (
 	"context"
 
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
 	"github.com/go-kit/kit/endpoint"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
@@ -25,12 +26,6 @@ type JSONRequest struct {
 	Content string     `json:"content"`
 }
 
-type JSONResponse struct {
-	ID      *uuid.UUID `json:"id,omitempty"`
-	Content string     `json:"content,omitempty"`
-	Error   string     `json:"error,omitempty"`
-}
-
 func FindByID(svc ServiceI) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req, ok := request.(FindByIDRequest)
@@ -43,7 +38,7 @@ func FindByID(svc ServiceI) endpoint.Endpoint {
 			return nil, err
 		}
 
-		return q.toJSONResponse(), nil
+		return q.ToJSONResponse(), nil
 	}
 }
 
@@ -54,7 +49,7 @@ func Upsert(svc ServiceI) endpoint.Endpoint {
 			return nil, errors.Wrap(ErrTypeAssertion, "cannot convert request->UpsertRequest")
 		}
 
-		q, err := NewQuote(req.ID, req.Content)
+		q, err := models.NewQuote(req.ID, req.Content)
 		if err != nil {
 			return nil, err
 		}
@@ -63,7 +58,7 @@ func Upsert(svc ServiceI) endpoint.Endpoint {
 			return nil, err
 		}
 
-		return q.toJSONResponse(), nil
+		return q.ToJSONResponse(), nil
 	}
 }
 

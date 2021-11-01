@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 	"time"
 
 	scaffolding "github.com/facily-tech/go-scaffold"
@@ -11,6 +12,7 @@ import (
 	"github.com/facily-tech/go-scaffold/internal/container"
 	apiServer "github.com/facily-tech/go-scaffold/pkg/core/http/server"
 	"github.com/facily-tech/go-scaffold/pkg/core/types"
+	"github.com/spf13/viper"
 )
 
 func main() {
@@ -28,8 +30,8 @@ func main() {
 	apiServer.Run(
 		ctx,
 		apiServer.Config{
-			Addr:             dep.Components.Viper.GetString("API_HOST_PORT"),
-			GracefulDuration: dep.Components.Viper.GetDuration("API_GRACEFUL_WAIT_TIME"),
+			Addr:             os.Getenv("API_HOST_PORT"),
+			GracefulDuration: viper.GetDuration("API_GRACEFUL_WAIT_TIME"),
 		},
 		api.Handler(ctx, &dep.Services),
 		dep.Components.Log,

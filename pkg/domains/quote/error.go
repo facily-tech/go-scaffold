@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
 	"github.com/pkg/errors"
 )
 
@@ -13,8 +14,7 @@ const (
 )
 
 var (
-	// ErrNew represents an error when creating a new Quote
-	ErrNew = errors.New("unable to create new quote")
+
 	// ErrEmptyRepository repository cannot be nil
 	ErrEmptyRepository = errors.New("empty repository")
 	// ErrTypeAssertion arises while trying to perform interface{}.(T)
@@ -31,7 +31,7 @@ type restError map[error]errorResponse
 // RESTErrorBussines Errors you want to map to more meaning response for clients and set specific
 // HTTP status code should be included here
 var RESTErrorBussines = restError{
-	ErrNew:        {"Sorry, we cannot create a new quote", http.StatusInternalServerError},
+	models.ErrNew: {"Sorry, we cannot create a new quote", http.StatusInternalServerError},
 	sql.ErrNoRows: {"Record not found", http.StatusNotFound},
 }
 

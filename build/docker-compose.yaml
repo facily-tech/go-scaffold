@@ -1,31 +1,36 @@
 version: '3.8'
 services:
-  api:
-    container_name: go-scaffold
+  app:
+    user: vscode
     build:
       context: ./../
-      target: debug
       dockerfile: ./build/Dockerfile
+      args:
+        # [Choice] Go version (use -bullseye variants on local arm64/Apple Silicon): 1, 1.16, 1.17, 1-bullseye, 1.16-bullseye, 1.17-bullseye, 1-buster, 1.16-buster, 1.17-buster
+        VARIANT: "1.17-bullseye"
+        NODE_VERSION: "none"
     depends_on:
       - postgres
     volumes:
-      - ./:/go/src/github.com/facily-tech/go-scaffold
+      - ..:/workspace
     ports:
       - "8080:8080"
     env_file:
       - ./../env/application.env
+    # Uncomment the next four lines if you will use a ptrace-based debugger like C++, Go, and Rust.
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    # Runs app on the same network as the service container, allows "forwardPorts" in devcontainer.json function.
+    # network_mode: service:postgres
 
   postgres:
     image: postgres:13-alpine
-    container_name: go-scaffold-postgres
+    restart: unless-stopped
     ports:
       - "5432:5432"
-    volumes:
-      - go-scaffold-postgres:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: goscaffold
-      POSTGRES_USER: 76F96CAB-7174-4B5E-A17F-1DB27B96B285
-      POSTGRES_PASSWORD: 1138A746-969D-46D7-813D-B135CB17A5A2
-
-volumes:
-  go-scaffold-postgres: {}
+    env_file:
+      - ./../env/postgres.env

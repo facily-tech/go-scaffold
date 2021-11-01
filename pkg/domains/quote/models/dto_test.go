@@ -1,4 +1,4 @@
-package quote
+package models
 
 import (
 	"testing"
@@ -19,8 +19,8 @@ func TestQuote_toJSONResponse(t *testing.T) {
 	}{
 		{
 			name:   "success",
-			fields: fields(testQuote),
-			want:   JSONResponse{ID: &testQuote.ID, Content: testQuote.Content},
+			fields: fields(TestQuote),
+			want:   JSONResponse{ID: &TestQuote.ID, Content: TestQuote.Content},
 		},
 	}
 	for _, tt := range tests {
@@ -29,7 +29,7 @@ func TestQuote_toJSONResponse(t *testing.T) {
 				ID:      tt.fields.ID,
 				Content: tt.fields.Content,
 			}
-			got := q.toJSONResponse()
+			got := q.ToJSONResponse()
 			assert.Equal(t, tt.want, got)
 		})
 	}

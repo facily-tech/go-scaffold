@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
 	pb "github.com/facily-tech/proto-examples/go-scaffold/build/go/quote"
 	grpctransport "github.com/go-kit/kit/transport/grpc"
 	"github.com/google/uuid"
@@ -52,7 +53,7 @@ func (s *grpcServer) Upsert(ctx context.Context, req *pb.UpsertRequest) (*pb.Ups
 		return nil, err
 	}
 
-	jsonResp := rep.(quote.JSONResponse)
+	jsonResp := rep.(models.JSONResponse)
 	resp := &pb.UpsertResponse{Id: jsonResp.ID.String(), Content: jsonResp.Content, Error: jsonResp.Error}
 
 	return resp, nil
@@ -77,7 +78,7 @@ func decodeGRPCFindByIDRequest(_ context.Context, grpcReq interface{}) (interfac
 }
 
 func encodeGRPCFindByIDResponse(_ context.Context, grpcResp interface{}) (interface{}, error) {
-	resp := grpcResp.(quote.JSONResponse)
+	resp := grpcResp.(models.JSONResponse)
 	return pb.FindResponse{Id: resp.ID.String(), Content: resp.Content}, nil
 }
 
@@ -97,8 +98,8 @@ func decodeGRPCUpsertRequest(_ context.Context, grpcReq interface{}) (interface{
 }
 
 func encodeGRPCUpsertResponse(_ context.Context, grpcResp interface{}) (interface{}, error) {
-	resp := grpcResp.(quote.JSONResponse)
-	return quote.JSONResponse{ID: resp.ID, Content: resp.Content, Error: resp.Error}, nil
+	resp := grpcResp.(models.JSONResponse)
+	return models.JSONResponse{ID: resp.ID, Content: resp.Content, Error: resp.Error}, nil
 }
 
 func decodeGRPCDeleteRequest(_ context.Context, grpcReq interface{}) (interface{}, error) {

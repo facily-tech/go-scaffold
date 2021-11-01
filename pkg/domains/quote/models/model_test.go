@@ -1,4 +1,4 @@
-package quote
+package models
 
 import (
 	"testing"
@@ -20,14 +20,14 @@ func TestNewQuote(t *testing.T) {
 	}{
 		{
 			name: "success, create a new quote without id",
-			args: args{id: nil, content: testQuote.Content},
-			want: testQuote,
+			args: args{id: nil, content: TestQuote.Content},
+			want: TestQuote,
 			err:  nil,
 		},
 		{
 			name: "success, create a new quote with id",
-			args: args{id: &testQuote.ID, content: testQuote.Content},
-			want: testQuote,
+			args: args{id: &TestQuote.ID, content: TestQuote.Content},
+			want: TestQuote,
 			err:  nil,
 		},
 		{

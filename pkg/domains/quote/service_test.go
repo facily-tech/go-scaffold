@@ -5,16 +5,16 @@ import (
 	"database/sql"
 	"testing"
 
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/repository/mem"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
-var testQuote Quote = Quote{ID: uuid.New(), Content: "IRC is just multiplayer notepad."}
-
 func TestNewService(t *testing.T) {
-	inmem := NewRepository()
+	inmem := mem.NewRepository()
 	type args struct {
-		repository RepositoryI
+		repository Repository
 	}
 	tests := []struct {
 		name string
@@ -51,15 +51,15 @@ func TestService_FindByID(t *testing.T) {
 	}
 
 	t.Run("success, create and find the quote", func(t *testing.T) {
-		inmem := NewRepository()
+		inmem := mem.NewRepository()
 
 		tt := struct {
 			args args
-			want Quote
+			want models.Quote
 			err  error
 		}{
-			args: args{ctx: context.Background(), id: testQuote.ID},
-			want: testQuote,
+			args: args{ctx: context.Background(), id: models.TestQuote.ID},
+			want: models.TestQuote,
 			err:  nil,
 		}
 
@@ -75,15 +75,15 @@ func TestService_FindByID(t *testing.T) {
 	})
 
 	t.Run("fail, try to find the quote which is not created before", func(t *testing.T) {
-		inmem := NewRepository()
+		inmem := mem.NewRepository()
 
 		tt := struct {
 			args args
-			want Quote
+			want models.Quote
 			err  error
 		}{
-			args: args{ctx: context.Background(), id: testQuote.ID},
-			want: Quote{},
+			args: args{ctx: context.Background(), id: models.TestQuote.ID},
+			want: models.Quote{},
 			err:  sql.ErrNoRows,
 		}
 
@@ -98,40 +98,40 @@ func TestService_FindByID(t *testing.T) {
 }
 
 func TestService_Upsert(t *testing.T) {
-	inmem := NewRepository()
+	inmem := mem.NewRepository()
 
 	type fields struct {
-		repository RepositoryI
+		repository Repository
 	}
 	type args struct {
 		ctx context.Context
-		q   *Quote
+		q   *models.Quote
 	}
 	tests := []struct {
 		name   string
 		fields fields
 		args   args
 		init   func(*testing.T, ServiceI)
-		after  func(*testing.T, ServiceI, uuid.UUID, Quote)
+		after  func(*testing.T, ServiceI, uuid.UUID, models.Quote)
 		err    error
 	}{
 		{
 			name:   "success, insert new quote",
 			fields: fields{repository: inmem},
-			args:   args{ctx: context.Background(), q: &testQuote},
+			args:   args{ctx: context.Background(), q: &models.TestQuote},
 			init:   func(t *testing.T, s ServiceI) {},
-			after:  func(t *testing.T, si ServiceI, id uuid.UUID, q Quote) {},
+			after:  func(t *testing.T, si ServiceI, id uuid.UUID, q models.Quote) {},
 			err:    nil,
 		},
 		{
 			name:   "success, insert new quote",
 			fields: fields{repository: inmem},
-			args:   args{ctx: context.Background(), q: &Quote{ID: testQuote.ID, Content: "changed"}},
+			args:   args{ctx: context.Background(), q: &models.Quote{ID: models.TestQuote.ID, Content: "changed"}},
 			init: func(t *testing.T, s ServiceI) {
-				err := s.Upsert(context.Background(), &testQuote)
+				err := s.Upsert(context.Background(), &models.TestQuote)
 				assert.NoError(t, err)
 			},
-			after: func(t *testing.T, s ServiceI, id uuid.UUID, quote Quote) {
+			after: func(t *testing.T, s ServiceI, id uuid.UUID, quote models.Quote) {
 				q, err := s.FindByID(context.Background(), id)
 				assert.NoError(t, err)
 				assert.Equal(t, quote, q)
@@ -153,9 +153,9 @@ func TestService_Upsert(t *testing.T) {
 }
 
 func TestService_Delete(t *testing.T) {
-	inmem := NewRepository()
+	inmem := mem.NewRepository()
 	type fields struct {
-		repository RepositoryI
+		repository Repository
 	}
 	type args struct {
 		ctx context.Context
@@ -171,7 +171,7 @@ func TestService_Delete(t *testing.T) {
 		{
 			name:   "success, create and remove quote",
 			fields: fields{repository: inmem},
-			args:   args{ctx: context.Background(), id: testQuote.ID},
+			args:   args{ctx: context.Background(), id: models.TestQuote.ID},
 			after:  func(s ServiceI, id uuid.UUID) {},
 			err:    nil,
 		},

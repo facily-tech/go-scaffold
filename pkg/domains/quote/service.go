@@ -3,32 +3,33 @@ package quote
 import (
 	"context"
 
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
 	"github.com/google/uuid"
 )
 
 //go:generate genmock -search.name=ServiceI -print.place.in_package -print.file.test
 type ServiceI interface {
-	FindByID(context.Context, uuid.UUID) (Quote, error)
-	Upsert(context.Context, *Quote) error
+	FindByID(context.Context, uuid.UUID) (models.Quote, error)
+	Upsert(context.Context, *models.Quote) error
 	Delete(context.Context, uuid.UUID) error
 }
 
 type Service struct {
-	repository RepositoryI
+	repository Repository
 }
 
-func NewService(repository RepositoryI) (*Service, error) {
+func NewService(repository Repository) (*Service, error) {
 	if repository == nil {
 		return nil, ErrEmptyRepository
 	}
 	return &Service{repository: repository}, nil
 }
 
-func (s *Service) FindByID(ctx context.Context, id uuid.UUID) (Quote, error) {
+func (s *Service) FindByID(ctx context.Context, id uuid.UUID) (models.Quote, error) {
 	return s.repository.FindByID(ctx, id)
 }
 
-func (s *Service) Upsert(ctx context.Context, q *Quote) error {
+func (s *Service) Upsert(ctx context.Context, q *models.Quote) error {
 	return s.repository.Upsert(ctx, q)
 }
 

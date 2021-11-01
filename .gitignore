@@ -24,3 +24,6 @@ bin/
 
 .DS_Store
 .editorconfig
+tmp/
+.air.toml
+pkg/domains/quote/service_i_test.go

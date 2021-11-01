@@ -3,6 +3,7 @@ package quote
 import (
 	"context"
 
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/models"
 	"github.com/google/uuid"
 	"github.com/prometheus/client_golang/prometheus"
 )
@@ -25,11 +26,11 @@ func NewCountMetric(quoteService ServiceI, counter prometheus.Counter) *CountMet
 	}
 }
 
-func (mw *CountMetric) FindByID(ctx context.Context, id uuid.UUID) (Quote, error) {
+func (mw *CountMetric) FindByID(ctx context.Context, id uuid.UUID) (models.Quote, error) {
 	return mw.next.FindByID(ctx, id)
 }
 
-func (mw *CountMetric) Upsert(ctx context.Context, q *Quote) error {
+func (mw *CountMetric) Upsert(ctx context.Context, q *models.Quote) error {
 	defer mw.count.Inc()
 	return mw.next.Upsert(ctx, q)
 }

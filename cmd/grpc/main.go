@@ -15,6 +15,7 @@ import (
 	"github.com/facily-tech/go-scaffold/pkg/core/types"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	pb "github.com/facily-tech/proto-examples/go-scaffold/build/go/quote"
+	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -40,11 +41,11 @@ func run(_ context.Context, dep *container.Dependency) {
 	signal.Notify(interrupt, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 	defer signal.Stop(interrupt)
 
-	server, err := net.Listen("tcp", dep.Components.Viper.GetString("SERVER_BIND"))
+	server, err := net.Listen("tcp", viper.GetString("SERVER_BIND"))
 	if err != nil {
 		dep.Components.Log.Error(
 			"Unable to listen",
-			zap.String("SERVER_BIND", dep.Components.Viper.GetString("SERVER_BIND")),
+			zap.String("SERVER_BIND", viper.GetString("SERVER_BIND")),
 			zap.Error(err),
 		)
 		return
@@ -52,7 +53,7 @@ func run(_ context.Context, dep *container.Dependency) {
 
 	dep.Components.Log.Info(
 		"Starting grpc server",
-		zap.String("SERVER_BIND", dep.Components.Viper.GetString("SERVER_BIND")),
+		zap.String("SERVER_BIND", viper.GetString("SERVER_BIND")),
 	)
 
 	defer server.Close()

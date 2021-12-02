@@ -1,5 +1,7 @@
 package config
 
+import "errors"
+
 var gitCommitHash string
 
 type Version struct {
@@ -11,3 +13,7 @@ func NewVersion() *Version {
 		GitCommitHash: gitCommitHash,
 	}
 }
+
+var (
+	ErrVersionTypeAssertion = errors.New("cannot type assert version interface{} -> *config.Version")
+)

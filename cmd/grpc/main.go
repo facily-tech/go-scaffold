@@ -68,4 +68,6 @@ func run(_ context.Context, dep *container.Dependency) {
 	<-interrupt
 	dep.Components.Log.Info("Stopping grpc server")
 	grpcServer.GracefulStop()
+
+	dep.Components.Trace.Close()
 }

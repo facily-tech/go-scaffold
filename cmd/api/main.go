@@ -31,7 +31,9 @@ func main() {
 			Addr:             dep.Components.Viper.GetString("API_HOST_PORT"),
 			GracefulDuration: dep.Components.Viper.GetDuration("API_GRACEFUL_WAIT_TIME"),
 		},
-		api.Handler(ctx, &dep.Services),
+		api.Handler(ctx, dep),
 		dep.Components.Log,
 	)
+
+	dep.Components.Trace.Close()
 }

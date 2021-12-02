@@ -4,8 +4,11 @@ import (
 	"context"
 	"embed"
 
+	"github.com/facily-tech/go-core/telemetry"
+	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/pkg/core/env"
 	"github.com/facily-tech/go-scaffold/pkg/core/log"
+	"github.com/facily-tech/go-scaffold/pkg/core/types"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -18,6 +21,7 @@ import (
 type components struct {
 	Viper *viper.Viper
 	Log   *zap.Logger
+	Trace telemetry.Tracer
 	// Include your new components bellow
 }
 
@@ -63,7 +67,12 @@ func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, erro
 	return ctx, &dep, err
 }
 
-func setupComponents(_ context.Context, embedFS embed.FS) (*components, error) {
+func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error) {
+	version, ok := ctx.Value(types.ContextKey(types.Version)).(*config.Version)
+	if !ok {
+		return nil, config.ErrVersionTypeAssertion
+	}
+
 	vip, err := env.ViperConfig(embedFS)
 	if err != nil {
 		return nil, err
@@ -74,9 +83,18 @@ func setupComponents(_ context.Context, embedFS embed.FS) (*components, error) {
 		return nil, err
 	}
 
+	trace := telemetry.NewDataDog(
+		telemetry.DataDogConfig{
+			Env:     viper.GetString("DD_ENV"),
+			Service: viper.GetString("DD_SERVICE"),
+			Version: version.GitCommitHash,
+		},
+	)
+
 	return &components{
 		// include components initialized above here
 		Viper: vip,
 		Log:   log,
+		Trace: trace,
 	}, nil
 }

@@ -18,6 +18,8 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+
+	_ "github.com/golang/mock/mockgen/model"
 )
 
 func main() {

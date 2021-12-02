@@ -24,3 +24,5 @@ bin/
 
 .DS_Store
 .editorconfig
+
+*_mock.go

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-//go:generate genmock -search.name=ServiceI -print.place.in_package -print.file.test
+//go:generate mockgen -destination service_mock.go -package=quote -source=service.go
 type ServiceI interface {
 	FindByID(context.Context, uuid.UUID) (Quote, error)
 	Upsert(context.Context, *Quote) error

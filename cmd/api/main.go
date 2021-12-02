@@ -11,6 +11,8 @@ import (
 	"github.com/facily-tech/go-scaffold/internal/container"
 	apiServer "github.com/facily-tech/go-scaffold/pkg/core/http/server"
 	"github.com/facily-tech/go-scaffold/pkg/core/types"
+
+	_ "github.com/golang/mock/mockgen/model"
 )
 
 func main() {

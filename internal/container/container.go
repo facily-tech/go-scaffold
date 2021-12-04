@@ -4,23 +4,22 @@ import (
 	"context"
 	"embed"
 
+	"github.com/facily-tech/go-core/log"
 	"github.com/facily-tech/go-core/telemetry"
 	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/pkg/core/env"
-	"github.com/facily-tech/go-scaffold/pkg/core/log"
 	"github.com/facily-tech/go-scaffold/pkg/core/types"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/spf13/viper"
-	"go.uber.org/zap"
 )
 
 // Components are a like service, but it doesn't include business case
 // Or domains, but likely used by multiple domains
 type components struct {
 	Viper *viper.Viper
-	Log   *zap.Logger
+	Log   log.Logger
 	Trace telemetry.Tracer
 	// Include your new components bellow
 }
@@ -78,11 +77,6 @@ func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error)
 		return nil, err
 	}
 
-	log, err := log.NewLogger(true)
-	if err != nil {
-		return nil, err
-	}
-
 	trace := telemetry.NewDataDog(
 		telemetry.DataDogConfig{
 			Env:     viper.GetString("DD_ENV"),
@@ -91,10 +85,20 @@ func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error)
 		},
 	)
 
+	l, err := log.NewLoggerZap(log.ZapConfig{
+		Version:           version.GitCommitHash,
+		DisableStackTrace: true,
+		Tracer:            trace,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
 	return &components{
-		// include components initialized above here
 		Viper: vip,
-		Log:   log,
+		Log:   l,
 		Trace: trace,
+		// include components initialized bellow here
 	}, nil
 }

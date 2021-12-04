@@ -24,7 +24,7 @@ func main() {
 
 	ctx, dep, err := container.New(ctx, scaffolding.Embeds)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) // log might not be started and because of that dep might not exist
 	}
 
 	apiServer.Run(

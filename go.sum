@@ -106,8 +106,8 @@ github.com/envoyproxy/go-control-plane v0.9.7/go.mod h1:cwu0lG7PUMfa9snN8LXBig5y
 github.com/envoyproxy/go-control-plane v0.9.9-0.20201210154907-fd9021fe5dad/go.mod h1:cXg6YxExXjJnVBQHBLXeUAgxn2UodCpnH306RInaBQk=
 github.com/envoyproxy/go-control-plane v0.9.9-0.20210217033140-668b12f5399d/go.mod h1:cXg6YxExXjJnVBQHBLXeUAgxn2UodCpnH306RInaBQk=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
-github.com/facily-tech/go-core/telemetry v0.2.0 h1:KMVev4c56oeJARiNUy7cVT+fQHHhrap9nkGegQSJbkw=
-github.com/facily-tech/go-core/telemetry v0.2.0/go.mod h1:Qnuu0FQynT5cHIgferYfuPr08cPtUL5JXfFWrjZi2UU=
+github.com/facily-tech/go-core/telemetry v0.3.0 h1:KcIVfB0mjuQnpWL4MQV1taU+tW64RyygpEVDfnmckY4=
+github.com/facily-tech/go-core/telemetry v0.3.0/go.mod h1:Qnuu0FQynT5cHIgferYfuPr08cPtUL5JXfFWrjZi2UU=
 github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721 h1:yP8QNGiHPolI0b77y3JUIqUAU691P5hFWuFqAhuvkkk=
 github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721/go.mod h1:qspKhAz+NW4PTpsr9G51q9kJ9mS1Ikz/rxjvWdSofcY=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=

@@ -14,8 +14,9 @@ import (
 func Handler(ctx context.Context, deps *container.Dependency) http.Handler {
 	r := chi.NewMux()
 
-	r.Use(middleware.RequestID)
 	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+	r.Use(middleware.RequestID)
 	r.Use(deps.Components.Trace.Middleware)
 
 	r.Handle("/metrics", promhttp.Handler())

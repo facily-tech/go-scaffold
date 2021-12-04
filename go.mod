@@ -2,7 +2,10 @@ module github.com/facily-tech/go-scaffold
 
 go 1.17
 
+replace github.com/facily-tech/go-core/log => /home/roger.russel/go/src/github.com/facily-tech/go-core/log
+
 require (
+	github.com/facily-tech/go-core/telemetry v0.3.0
 	github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-kit/kit v0.11.0
@@ -23,7 +26,10 @@ require (
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 )
 
-require github.com/facily-tech/go-core/telemetry v0.2.0
+require (
+	github.com/facily-tech/go-core/log v0.0.0-00010101000000-000000000000
+	github.com/golang/mock v1.6.0
+)
 
 require (
 	github.com/DataDog/datadog-go v4.4.0+incompatible // indirect
@@ -34,7 +40,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-logfmt/logfmt v0.5.0 // indirect
-	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect

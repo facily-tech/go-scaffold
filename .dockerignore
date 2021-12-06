@@ -1,0 +1,6 @@
+.git
+*out
+.idea
+.vscode
+build
+k8s

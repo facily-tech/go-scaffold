@@ -2,8 +2,6 @@ module github.com/facily-tech/go-scaffold
 
 go 1.17
 
-replace github.com/facily-tech/go-core/log => /home/roger.russel/go/src/github.com/facily-tech/go-core/log
-
 require (
 	github.com/facily-tech/go-core/telemetry v0.3.0
 	github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721
@@ -19,7 +17,7 @@ require (
 	gitlab.com/so_literate/genmock v0.0.5
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
-	go.uber.org/zap v1.19.1
+	go.uber.org/zap v1.19.1 // indirect
 	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/grpc v1.38.0
@@ -27,7 +25,7 @@ require (
 )
 
 require (
-	github.com/facily-tech/go-core/log v0.0.0-00010101000000-000000000000
+	github.com/facily-tech/go-core/log v0.1.0
 	github.com/golang/mock v1.6.0
 )
 

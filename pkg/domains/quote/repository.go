@@ -3,13 +3,21 @@ package quote
 import (
 	"context"
 	"database/sql"
+
 	"sync"
 
+	"github.com/facily-tech/go-core/log"
 	"github.com/google/uuid"
 )
 
+// RepositoryI is a interface to communicate with a external source of data (ex: Postgres, Firebase FireStore or an API)
+// It is using the concept of having a readable interface called "Querier"
+// and a Writable interface called "Execer", which exec actions into the external source of data.
 type RepositoryI interface {
+	// Queries is a "Readeble" interface responsible to read data from source
 	Querier
+
+	// Execer is a "Writable" interface responsible for write data into source
 	Execer
 }
 
@@ -23,13 +31,15 @@ type Execer interface {
 }
 
 type RepositoryMemory struct {
-	mu sync.Mutex
-	db map[uuid.UUID]Quote
+	mu  sync.Mutex
+	db  map[uuid.UUID]Quote
+	log log.Logger
 }
 
-func NewRepository() *RepositoryMemory {
+func NewRepository(logger log.Logger) *RepositoryMemory {
 	return &RepositoryMemory{
-		db: map[uuid.UUID]Quote{},
+		db:  map[uuid.UUID]Quote{},
+		log: logger,
 	}
 }
 

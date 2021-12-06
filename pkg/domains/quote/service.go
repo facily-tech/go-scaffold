@@ -3,6 +3,7 @@ package quote
 import (
 	"context"
 
+	"github.com/facily-tech/go-core/log"
 	"github.com/google/uuid"
 )
 
@@ -15,13 +16,17 @@ type ServiceI interface {
 
 type Service struct {
 	repository RepositoryI
+	log        log.Logger
 }
 
-func NewService(repository RepositoryI) (*Service, error) {
+func NewService(repository RepositoryI, log log.Logger) (*Service, error) {
 	if repository == nil {
 		return nil, ErrEmptyRepository
 	}
-	return &Service{repository: repository}, nil
+	return &Service{
+		repository: repository,
+		log:        log,
+	}, nil
 }
 
 func (s *Service) FindByID(ctx context.Context, id uuid.UUID) (Quote, error) {

@@ -42,7 +42,11 @@ func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, erro
 		return nil, nil, err
 	}
 
-	quoteService, err := quote.NewService(quote.NewRepository())
+	quoteService, err := quote.NewService(
+		quote.NewRepository(cmp.Log),
+		cmp.Log,
+	)
+
 	if err != nil {
 		return nil, nil, err
 	}

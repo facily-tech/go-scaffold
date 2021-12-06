@@ -12,7 +12,6 @@ import (
 	"time"
 
 	coreLog "github.com/facily-tech/go-core/log"
-	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/pkg/core/types"
 )
 
@@ -63,11 +62,6 @@ func Run(ctx context.Context, cnf Config, handler http.Handler, log coreLog.Logg
 }
 
 func startingMessage(ctx context.Context, where string, log coreLog.Logger) {
-	v, ok := ctx.Value(types.ContextKey(types.Version)).(*config.Version)
-	if !ok {
-		log.Warn(ctx, "could not get version, received")
-	}
-
 	t, ok := ctx.Value(types.ContextKey(types.StartedAt)).(time.Time)
 	if !ok {
 		fmt.Println(reflect.TypeOf(ctx.Value(types.ContextKey(types.StartedAt))))
@@ -78,6 +72,5 @@ func startingMessage(ctx context.Context, where string, log coreLog.Logger) {
 		"Starting API Server",
 		coreLog.Any("bind", where),
 		coreLog.Any("start time", t),
-		coreLog.Any("version", v.GitCommitHash),
 	)
 }

@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"testing"
 
+	"github.com/facily-tech/go-core/log"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
@@ -12,9 +13,12 @@ import (
 var testQuote Quote = Quote{ID: uuid.New(), Content: "IRC is just multiplayer notepad."}
 
 func TestNewService(t *testing.T) {
-	inmem := NewRepository()
+	l, _ := log.NewLoggerZap(log.ZapConfig{})
+
+	inmem := NewRepository(l)
 	type args struct {
 		repository RepositoryI
+		log        log.Logger
 	}
 	tests := []struct {
 		name string
@@ -24,20 +28,29 @@ func TestNewService(t *testing.T) {
 	}{
 		{
 			name: "success, repository is initiliazed",
-			args: args{repository: inmem},
-			want: &Service{inmem},
-			err:  nil,
+			args: args{
+				repository: inmem,
+				log:        l,
+			},
+			want: &Service{
+				repository: inmem,
+				log:        l,
+			},
+			err: nil,
 		},
 		{
 			name: "fail, repository is empty",
-			args: args{repository: nil},
+			args: args{
+				repository: nil,
+				log:        nil,
+			},
 			want: nil,
 			err:  ErrEmptyRepository,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewService(tt.args.repository)
+			got, err := NewService(tt.args.repository, tt.args.log)
 			assert.ErrorIs(t, err, tt.err)
 			assert.Equal(t, tt.want, got)
 		})
@@ -49,9 +62,9 @@ func TestService_FindByID(t *testing.T) {
 		ctx context.Context
 		id  uuid.UUID
 	}
-
+	log, _ := log.NewLoggerZap(log.ZapConfig{})
 	t.Run("success, create and find the quote", func(t *testing.T) {
-		inmem := NewRepository()
+		inmem := NewRepository(log)
 
 		tt := struct {
 			args args
@@ -75,7 +88,7 @@ func TestService_FindByID(t *testing.T) {
 	})
 
 	t.Run("fail, try to find the quote which is not created before", func(t *testing.T) {
-		inmem := NewRepository()
+		inmem := NewRepository(log)
 
 		tt := struct {
 			args args
@@ -98,7 +111,8 @@ func TestService_FindByID(t *testing.T) {
 }
 
 func TestService_Upsert(t *testing.T) {
-	inmem := NewRepository()
+	log, _ := log.NewLoggerZap(log.ZapConfig{})
+	inmem := NewRepository(log)
 
 	type fields struct {
 		repository RepositoryI
@@ -153,7 +167,8 @@ func TestService_Upsert(t *testing.T) {
 }
 
 func TestService_Delete(t *testing.T) {
-	inmem := NewRepository()
+	log, _ := log.NewLoggerZap(log.ZapConfig{})
+	inmem := NewRepository(log)
 	type fields struct {
 		repository RepositoryI
 	}

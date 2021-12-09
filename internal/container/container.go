@@ -18,9 +18,9 @@ import (
 // Components are a like service, but it doesn't include business case
 // Or domains, but likely used by multiple domains
 type components struct {
-	Viper *viper.Viper
-	Log   log.Logger
-	Trace telemetry.Tracer
+	Viper  *viper.Viper
+	Log    log.Logger
+	Tracer telemetry.Tracer
 	// Include your new components bellow
 }
 
@@ -81,7 +81,7 @@ func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error)
 		return nil, err
 	}
 
-	trace := telemetry.NewDataDog(
+	tracer := telemetry.NewDataDog(
 		telemetry.DataDogConfig{
 			Env:     viper.GetString("DD_ENV"),
 			Service: viper.GetString("DD_SERVICE"),
@@ -92,7 +92,7 @@ func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error)
 	l, err := log.NewLoggerZap(log.ZapConfig{
 		Version:           version.GitCommitHash,
 		DisableStackTrace: true,
-		Tracer:            trace,
+		Tracer:            tracer,
 	})
 
 	if err != nil {
@@ -100,9 +100,9 @@ func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error)
 	}
 
 	return &components{
-		Viper: vip,
-		Log:   l,
-		Trace: trace,
+		Viper:  vip,
+		Log:    l,
+		Tracer: tracer,
 		// include components initialized bellow here
 	}, nil
 }

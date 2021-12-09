@@ -37,5 +37,5 @@ func main() {
 		dep.Components.Log,
 	)
 
-	dep.Components.Trace.Close()
+	dep.Components.Tracer.Close()
 }

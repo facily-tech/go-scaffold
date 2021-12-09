@@ -11,17 +11,17 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-func Handler(ctx context.Context, deps *container.Dependency) http.Handler {
+func Handler(ctx context.Context, dep *container.Dependency) http.Handler {
 	r := chi.NewMux()
 
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.RequestID)
-	r.Use(deps.Components.Trace.Middleware)
+	r.Use(dep.Components.Tracer.Middleware)
 
 	r.Handle("/metrics", promhttp.Handler())
 
-	quoteHandler := transport.NewHTTPHandler(deps.Services.Quote)
+	quoteHandler := transport.NewHTTPHandler(dep.Services.Quote)
 	r.Mount("/v1/quote", quoteHandler)
 
 	return r

@@ -73,5 +73,5 @@ func run(ctx context.Context, dep *container.Dependency) {
 	dep.Components.Log.Info(ctx, "Stopping grpc server")
 	grpcServer.GracefulStop()
 
-	dep.Components.Trace.Close()
+	dep.Components.Tracer.Close()
 }

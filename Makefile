@@ -27,7 +27,7 @@ docker:
 	@docker-compose -f ./build/docker-compose.yaml up
 
 .PHONY: generate
-generate:
+generate: build-dep
 	@go generate ./...
 
 .PHONY: test
@@ -41,3 +41,7 @@ cover: test
 .PHONY: stress
 stress:
 	@k6 run _test/stress/httpload.js
+
+.PHONY: build-dep
+build-dep:
+	@go install github.com/golang/mock/mockgen@v1.5.0	

@@ -11,6 +11,8 @@ import (
 	"github.com/facily-tech/go-scaffold/internal/container"
 	apiServer "github.com/facily-tech/go-scaffold/pkg/core/http/server"
 	"github.com/facily-tech/go-scaffold/pkg/core/types"
+
+	_ "github.com/golang/mock/mockgen/model"
 )
 
 func main() {
@@ -22,7 +24,7 @@ func main() {
 
 	ctx, dep, err := container.New(ctx, scaffolding.Embeds)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) // log might not be started and because of that dep might not exist
 	}
 
 	apiServer.Run(
@@ -31,7 +33,9 @@ func main() {
 			Addr:             dep.Components.Viper.GetString("API_HOST_PORT"),
 			GracefulDuration: dep.Components.Viper.GetDuration("API_GRACEFUL_WAIT_TIME"),
 		},
-		api.Handler(ctx, &dep.Services),
+		api.Handler(ctx, dep),
 		dep.Components.Log,
 	)
+
+	dep.Components.Tracer.Close()
 }

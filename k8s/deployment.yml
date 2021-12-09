@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: $REPO_NAME
+  namespace: $NAMESPACE
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    tags.datadoghq.com/env: $DD_ENV
+    tags.datadoghq.com/service: $DD_SERVICE
+spec:
+  selector:
+    matchLabels:
+      app: $REPO_NAME
+  template:
+    metadata:
+      labels:
+        app: $REPO_NAME
+        tags.datadoghq.com/env: $DD_ENV
+        tags.datadoghq.com/service: $DD_SERVICE
+    spec:
+      containers:
+      - name: $REPO_NAME
+        image: $DOCKER_REGISTRY/$GITHUB_REPOSITORY:$GITHUB_SHA
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: $REPO_NAME
+        env:
+          - name: DD_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        ports:
+          - containerPort: $DOCKER_PORT
+        resources:
+          requests:
+            memory: $MEMORY_REQUEST
+            cpu: $CPU_REQUEST
+          limits:
+            memory: $MEMORY_LIMIT
+            cpu: $CPU_LIMIT
+        readinessProbe:
+          httpGet:
+           path: /health
+           port: $DOCKER_PORT
+          initialDelaySeconds: 40
+          periodSeconds: 60
+          timeoutSeconds: 40
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: $REPO_NAME
+  namespace: $NAMESPACE
+spec:
+  type: ClusterIP
+  selector:
+    app: $REPO_NAME
+  ports:
+    - port: $SERVICE_CLUSTER_PORT
+      targetPort: $DOCKER_PORT
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: $REPO_NAME
+  namespace: $NAMESPACE
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/target-group-attributes: load_balancing.algorithm.type=least_outstanding_requests
+    alb.ingress.kubernetes.io/certificate-arn: $ARN_CERTIFICATE
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: $SUBNETS
+    alb.ingress.kubernetes.io/load-balancer-attributes: routing.http2.enabled=true
+    alb.ingress.kubernetes.io/proxy-read-timeout: "600"
+spec:
+  rules:
+  - host: $DOMAIN_APPLICATION
+    http:
+      paths:
+      - backend:
+          serviceName: $REPO_NAME
+          servicePort: $SERVICE_CLUSTER_PORT
+  tls:
+  - hosts:
+    - $DOMAIN_APPLICATION
+    secretName: facily-certs

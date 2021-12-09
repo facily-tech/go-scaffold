@@ -3,10 +3,11 @@ package quote
 import (
 	"context"
 
+	"github.com/facily-tech/go-core/log"
 	"github.com/google/uuid"
 )
 
-//go:generate genmock -search.name=ServiceI -print.place.in_package -print.file.test
+//go:generate mockgen -destination service_mock.go -package=quote -source=service.go
 type ServiceI interface {
 	FindByID(context.Context, uuid.UUID) (Quote, error)
 	Upsert(context.Context, *Quote) error
@@ -15,13 +16,17 @@ type ServiceI interface {
 
 type Service struct {
 	repository RepositoryI
+	log        log.Logger
 }
 
-func NewService(repository RepositoryI) (*Service, error) {
+func NewService(repository RepositoryI, log log.Logger) (*Service, error) {
 	if repository == nil {
 		return nil, ErrEmptyRepository
 	}
-	return &Service{repository: repository}, nil
+	return &Service{
+		repository: repository,
+		log:        log,
+	}, nil
 }
 
 func (s *Service) FindByID(ctx context.Context, id uuid.UUID) (Quote, error) {

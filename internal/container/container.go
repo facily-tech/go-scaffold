@@ -4,20 +4,23 @@ import (
 	"context"
 	"embed"
 
+	"github.com/facily-tech/go-core/log"
+	"github.com/facily-tech/go-core/telemetry"
+	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/pkg/core/env"
-	"github.com/facily-tech/go-scaffold/pkg/core/log"
+	"github.com/facily-tech/go-scaffold/pkg/core/types"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/spf13/viper"
-	"go.uber.org/zap"
 )
 
 // Components are a like service, but it doesn't include business case
 // Or domains, but likely used by multiple domains
 type components struct {
-	Viper *viper.Viper
-	Log   *zap.Logger
+	Viper  *viper.Viper
+	Log    log.Logger
+	Tracer telemetry.Tracer
 	// Include your new components bellow
 }
 
@@ -39,7 +42,11 @@ func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, erro
 		return nil, nil, err
 	}
 
-	quoteService, err := quote.NewService(quote.NewRepository())
+	quoteService, err := quote.NewService(
+		quote.NewRepository(cmp.Log),
+		cmp.Log,
+	)
+
 	if err != nil {
 		return nil, nil, err
 	}
@@ -63,20 +70,39 @@ func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, erro
 	return ctx, &dep, err
 }
 
-func setupComponents(_ context.Context, embedFS embed.FS) (*components, error) {
+func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error) {
+	version, ok := ctx.Value(types.ContextKey(types.Version)).(*config.Version)
+	if !ok {
+		return nil, config.ErrVersionTypeAssertion
+	}
+
 	vip, err := env.ViperConfig(embedFS)
 	if err != nil {
 		return nil, err
 	}
 
-	log, err := log.NewLogger(true)
+	tracer := telemetry.NewDataDog(
+		telemetry.DataDogConfig{
+			Env:     viper.GetString("DD_ENV"),
+			Service: viper.GetString("DD_SERVICE"),
+			Version: version.GitCommitHash,
+		},
+	)
+
+	l, err := log.NewLoggerZap(log.ZapConfig{
+		Version:           version.GitCommitHash,
+		DisableStackTrace: true,
+		Tracer:            tracer,
+	})
+
 	if err != nil {
 		return nil, err
 	}
 
 	return &components{
-		// include components initialized above here
-		Viper: vip,
-		Log:   log,
+		Viper:  vip,
+		Log:    l,
+		Tracer: tracer,
+		// include components initialized bellow here
 	}, nil
 }

@@ -13,7 +13,8 @@ import (
 var testQuote Quote = Quote{ID: uuid.New(), Content: "IRC is just multiplayer notepad."}
 
 func TestNewService(t *testing.T) {
-	l, _ := log.NewLoggerZap(log.ZapConfig{})
+	l, err := log.NewLoggerZap(log.ZapConfig{})
+	assert.NoError(t, err)
 
 	inmem := NewRepository(l)
 	type args struct {

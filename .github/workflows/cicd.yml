@@ -83,8 +83,7 @@ jobs:
         run: | 
           curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && sudo mv /tmp/eksctl /usr/local/bin
           /usr/local/bin/eksctl utils write-kubeconfig --kubeconfig .kubeconfig --cluster $CLUSTER_NAME --region $AWS_DEFAULT_REGION
-          envsubst < k8s/configmap.yml | kubectl --kubeconfig=.kubeconfig apply -f -
-          envsubst < k8s/deployment.yml | kubectl --kubeconfig=.kubeconfig apply -f -
+          cat k8s/*.{yml,yaml} | envsubst - | kubectl --kubeconfig=.kubeconfig apply -f -
           kubectl --kubeconfig=.kubeconfig rollout status --timeout=1m -w deployment $REPO_NAME -n $NAMESPACE
 
   deploy_prod:
@@ -126,6 +125,5 @@ jobs:
         run: |
           curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && sudo mv /tmp/eksctl /usr/local/bin
           /usr/local/bin/eksctl utils write-kubeconfig --kubeconfig .kubeconfig --cluster $CLUSTER_NAME --region $AWS_DEFAULT_REGION
-          envsubst < k8s/configmap.yml | kubectl --kubeconfig=.kubeconfig apply -f -
-          envsubst < k8s/deployment.yml | kubectl --kubeconfig=.kubeconfig apply -f -
+          cat k8s/*.{yml,yaml} | envsubst - | kubectl --kubeconfig=.kubeconfig apply -f -
           kubectl --kubeconfig=.kubeconfig rollout status --timeout=1m -w deployment $REPO_NAME -n $NAMESPACE

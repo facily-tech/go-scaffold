@@ -1,4 +1,4 @@
-module github.com/facily-tech/fintech-lending-account
+module github.com/facily-tech/go-scaffold
 
 go 1.17
 
@@ -50,7 +50,6 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.26.0 // indirect
 	github.com/prometheus/procfs v0.6.0 // indirect
-	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect

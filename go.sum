@@ -41,6 +41,7 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/DataDog/datadog-go v4.4.0+incompatible h1:R7WqXWP4fIOAqWJtUKmSfuc7eDsBT58k9AY5WSHVosk=
 github.com/DataDog/datadog-go v4.4.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
+github.com/DataDog/gostackparse v0.5.0 h1:jb72P6GFHPHz2W0onsN51cS3FkaMDcjb0QzgxxA4gDk=
 github.com/DataDog/gostackparse v0.5.0/go.mod h1:lTfqcJKqS9KnXQGnyQMCugq3u1FP6UZMfWR0aitKFMM=
 github.com/DataDog/sketches-go v1.0.0 h1:chm5KSXO7kO+ywGWJ0Zs6tdmWU8PBXSbywFVciL6BG4=
 github.com/DataDog/sketches-go v1.0.0/go.mod h1:O+XkJHWk9w4hDwY2ZUDU31ZC9sNYlYo8DiFsxjYeo1k=
@@ -112,8 +113,9 @@ github.com/facily-tech/go-core/http v0.1.0 h1:WcQXDD4vRTVPg+GlybbQt90lRA7JXMxRFe
 github.com/facily-tech/go-core/http v0.1.0/go.mod h1:kpkZXXLroBWbIpXf63cpsjYr19HsvZq/XzQ9gDf2Vig=
 github.com/facily-tech/go-core/log v0.1.0 h1:4YJ5W14s4Mx/HwW3XWRwF0HntJtLbO4GQXvjOTdGTHw=
 github.com/facily-tech/go-core/log v0.1.0/go.mod h1:WYVdsRqcYBb4v49E8wRFX58Z72t5wWIYatp4i7sty24=
-github.com/facily-tech/go-core/telemetry v0.3.0 h1:KcIVfB0mjuQnpWL4MQV1taU+tW64RyygpEVDfnmckY4=
 github.com/facily-tech/go-core/telemetry v0.3.0/go.mod h1:Qnuu0FQynT5cHIgferYfuPr08cPtUL5JXfFWrjZi2UU=
+github.com/facily-tech/go-core/telemetry v0.4.0 h1:iXX5doUCjy9F9y/CL52wGeMHdTXY2WIwKic6blAJGI4=
+github.com/facily-tech/go-core/telemetry v0.4.0/go.mod h1:ZMZnMciZZtRlstR5bindfg4CSGwYUHPCc1zouZ07sHw=
 github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721 h1:yP8QNGiHPolI0b77y3JUIqUAU691P5hFWuFqAhuvkkk=
 github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721/go.mod h1:qspKhAz+NW4PTpsr9G51q9kJ9mS1Ikz/rxjvWdSofcY=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
@@ -211,6 +213,7 @@ github.com/google/pprof v0.0.0-20201023163331-3e6fc7fc9c4c/go.mod h1:kpwsk12EmLe
 github.com/google/pprof v0.0.0-20201203190320-1bf35d6f28c2/go.mod h1:kpwsk12EmLew5upagYY7GY0pfYCcupk39gWOCRROcvE=
 github.com/google/pprof v0.0.0-20210122040257-d980be63207e/go.mod h1:kpwsk12EmLew5upagYY7GY0pfYCcupk39gWOCRROcvE=
 github.com/google/pprof v0.0.0-20210226084205-cbba55b83ad5/go.mod h1:kpwsk12EmLew5upagYY7GY0pfYCcupk39gWOCRROcvE=
+github.com/google/pprof v0.0.0-20210423192551-a2663126120b h1:l2YRhr+YLzmSp7KJMswRVk/lO5SwoFIcCLzJsVj+YPc=
 github.com/google/pprof v0.0.0-20210423192551-a2663126120b/go.mod h1:kpwsk12EmLew5upagYY7GY0pfYCcupk39gWOCRROcvE=
 github.com/google/renameio v0.1.0/go.mod h1:KWCgfxg9yswjAJkECMjeO8J8rahYeXnNhOm40UhjYkI=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=

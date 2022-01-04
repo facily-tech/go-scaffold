@@ -3,7 +3,7 @@ module github.com/facily-tech/go-scaffold
 go 1.17
 
 require (
-	github.com/facily-tech/go-core/telemetry v0.3.0
+	github.com/facily-tech/go-core/telemetry v0.4.0
 	github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-kit/kit v0.11.0
@@ -25,6 +25,7 @@ require (
 )
 
 require (
+	github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a
 	github.com/facily-tech/go-core/http v0.1.0
 	github.com/facily-tech/go-core/log v0.1.0
 	github.com/golang/mock v1.6.0
@@ -32,16 +33,17 @@ require (
 
 require (
 	github.com/DataDog/datadog-go v4.4.0+incompatible // indirect
+	github.com/DataDog/gostackparse v0.5.0 // indirect
 	github.com/DataDog/sketches-go v1.0.0 // indirect
 	github.com/Microsoft/go-winio v0.5.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/go-logfmt/logfmt v0.5.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/google/pprof v0.0.0-20210423192551-a2663126120b // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect

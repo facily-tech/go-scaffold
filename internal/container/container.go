@@ -6,9 +6,9 @@ import (
 
 	"github.com/facily-tech/go-core/log"
 	"github.com/facily-tech/go-core/telemetry"
+	"github.com/facily-tech/go-core/types"
 	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/pkg/core/env"
-	"github.com/facily-tech/go-scaffold/pkg/core/types"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"

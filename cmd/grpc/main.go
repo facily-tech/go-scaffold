@@ -10,10 +10,10 @@ import (
 	"time"
 
 	coreLog "github.com/facily-tech/go-core/log"
+	"github.com/facily-tech/go-core/types"
 	scaffolding "github.com/facily-tech/go-scaffold"
 	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/internal/container"
-	"github.com/facily-tech/go-scaffold/pkg/core/types"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	pb "github.com/facily-tech/proto-examples/go-scaffold/build/go/quote"
 	"google.golang.org/grpc"

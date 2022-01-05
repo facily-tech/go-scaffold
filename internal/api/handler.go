@@ -26,9 +26,5 @@ func Handler(ctx context.Context, dep *container.Dependency) http.Handler {
 	quoteHandler := transport.NewHTTPHandler(dep.Services.Quote)
 	r.Mount("/v1/quote", quoteHandler)
 
-	r.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
-		panic("foo")
-	})
-
 	return r
 }

@@ -2,23 +2,20 @@ package container
 
 import (
 	"context"
-	"embed"
 
+	"github.com/facily-tech/go-core/env"
 	"github.com/facily-tech/go-core/log"
 	"github.com/facily-tech/go-core/telemetry"
 	"github.com/facily-tech/go-core/types"
 	"github.com/facily-tech/go-scaffold/internal/config"
-	"github.com/facily-tech/go-scaffold/pkg/core/env"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
-	"github.com/spf13/viper"
 )
 
 // Components are a like service, but it doesn't include business case
 // Or domains, but likely used by multiple domains
 type components struct {
-	Viper  *viper.Viper
 	Log    log.Logger
 	Tracer telemetry.Tracer
 	// Include your new components bellow
@@ -36,8 +33,8 @@ type Dependency struct {
 	Services   Services
 }
 
-func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, error) {
-	cmp, err := setupComponents(ctx, embs)
+func New(ctx context.Context) (context.Context, *Dependency, error) {
+	cmp, err := setupComponents(ctx)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -70,24 +67,26 @@ func New(ctx context.Context, embs embed.FS) (context.Context, *Dependency, erro
 	return ctx, &dep, err
 }
 
-func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error) {
+func setupComponents(ctx context.Context) (*components, error) {
 	version, ok := ctx.Value(types.ContextKey(types.Version)).(*config.Version)
 	if !ok {
 		return nil, config.ErrVersionTypeAssertion
 	}
 
-	vip, err := env.ViperConfig(embedFS)
+	telemetryConfig := telemetry.DataDogConfig{
+		Version: version.GitCommitHash,
+	}
+
+	err := env.LoadEnv(ctx, &telemetryConfig, telemetry.DataDogConfigPrefix)
 	if err != nil {
 		return nil, err
 	}
 
-	tracer := telemetry.NewDataDog(
-		telemetry.DataDogConfig{
-			Env:     viper.GetString("DD_ENV"),
-			Service: viper.GetString("DD_SERVICE"),
-			Version: version.GitCommitHash,
-		},
-	)
+	tracer, err := telemetry.NewDataDog(telemetryConfig)
+
+	if err != nil {
+		return nil, err
+	}
 
 	l, err := log.NewLoggerZap(log.ZapConfig{
 		Version:           version.GitCommitHash,
@@ -100,7 +99,6 @@ func setupComponents(ctx context.Context, embedFS embed.FS) (*components, error)
 	}
 
 	return &components{
-		Viper:  vip,
 		Log:    l,
 		Tracer: tracer,
 		// include components initialized bellow here

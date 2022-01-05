@@ -26,6 +26,7 @@ require (
 
 require (
 	github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a
+	github.com/facily-tech/go-core/env v0.1.0
 	github.com/facily-tech/go-core/http v0.1.0
 	github.com/facily-tech/go-core/log v0.1.0
 	github.com/golang/mock v1.6.0
@@ -55,6 +56,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.26.0 // indirect
 	github.com/prometheus/procfs v0.6.0 // indirect
+	github.com/sethvargo/go-envconfig v0.3.5 // indirect
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect

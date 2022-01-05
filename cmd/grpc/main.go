@@ -9,9 +9,9 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/facily-tech/go-core/env"
 	coreLog "github.com/facily-tech/go-core/log"
 	"github.com/facily-tech/go-core/types"
-	scaffolding "github.com/facily-tech/go-scaffold"
 	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/internal/container"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
@@ -29,7 +29,7 @@ func main() {
 	ctx = context.WithValue(ctx, types.ContextKey(types.Version), config.NewVersion())
 	ctx = context.WithValue(ctx, types.ContextKey(types.StartedAt), time.Now())
 
-	ctx, dep, err := container.New(ctx, scaffolding.Embeds)
+	ctx, dep, err := container.New(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,17 +37,35 @@ func main() {
 	run(ctx, dep)
 }
 
+var grpcPrefixConfig = "GRPC_"
+
+type grpcConfig struct {
+	ServerBind string `env:"SERVER_BIND"`
+}
+
 func run(ctx context.Context, dep *container.Dependency) {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 	defer signal.Stop(interrupt)
 
-	server, err := net.Listen("tcp", dep.Components.Viper.GetString("SERVER_BIND"))
+	grpcConfig := grpcConfig{}
+	err := env.LoadEnv(ctx, &grpcConfig, grpcPrefixConfig)
+
+	if err != nil {
+		dep.Components.Log.Error(
+			ctx,
+			"Unable to load config",
+			coreLog.Error(err),
+		)
+		return
+	}
+
+	server, err := net.Listen("tcp", grpcConfig.ServerBind)
 	if err != nil {
 		dep.Components.Log.Error(
 			ctx,
 			"Unable to listen",
-			coreLog.Any("SERVER_BIND", dep.Components.Viper.GetString("SERVER_BIND")),
+			coreLog.Any("SERVER_BIND", grpcConfig.ServerBind),
 			coreLog.Error(err),
 		)
 		return
@@ -56,7 +74,7 @@ func run(ctx context.Context, dep *container.Dependency) {
 	dep.Components.Log.Info(
 		ctx,
 		"Starting grpc server",
-		coreLog.Any("SERVER_BIND", dep.Components.Viper.GetString("SERVER_BIND")),
+		coreLog.Any("SERVER_BIND", grpcConfig.ServerBind),
 	)
 
 	defer server.Close()

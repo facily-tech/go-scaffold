@@ -109,6 +109,8 @@ github.com/envoyproxy/go-control-plane v0.9.9-0.20210217033140-668b12f5399d/go.m
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a h1:dGdtpIbViHu6Ekcc/dvCf0kZSy4WO1QkVvEMpOYvH9w=
 github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a/go.mod h1:QEdNmw5Svz6pGimSwTtPCrcLIruEgb/S24PRhUXbq0s=
+github.com/facily-tech/go-core/env v0.1.0 h1:0wkuJMXW4UY46Llf1JDug3+kpCA/5ANAsyO/BbHAAnU=
+github.com/facily-tech/go-core/env v0.1.0/go.mod h1:yZrLG8F9utoEkJChd3ORgCSkMUsoaSNjJ34/DjCUFaw=
 github.com/facily-tech/go-core/http v0.1.0 h1:WcQXDD4vRTVPg+GlybbQt90lRA7JXMxRFeHyp5KVf5U=
 github.com/facily-tech/go-core/http v0.1.0/go.mod h1:kpkZXXLroBWbIpXf63cpsjYr19HsvZq/XzQ9gDf2Vig=
 github.com/facily-tech/go-core/log v0.1.0 h1:4YJ5W14s4Mx/HwW3XWRwF0HntJtLbO4GQXvjOTdGTHw=
@@ -382,6 +384,8 @@ github.com/rogpeppe/go-internal v1.8.0 h1:FCbCCtXNOY3UtUuHUYaghJg4y7Fd14rXifAYUA
 github.com/rogpeppe/go-internal v1.8.0/go.mod h1:WmiCO8CzOY8rg0OYDC4/i/2WRWAB6poM+XZ2dLUbcbE=
 github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb6uqfes/u+d4ooFouqFdy9/2g9QGwK3SQygK0Ts=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
+github.com/sethvargo/go-envconfig v0.3.5 h1:dXU6y76SACA7tB3PFs+7HJuRvZCixYRUinuuI8fjYGk=
+github.com/sethvargo/go-envconfig v0.3.5/go.mod h1:XZ2JRR7vhlBEO5zMmOpLgUhgYltqYqq4d4tKagtPUv0=
 github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/sirupsen/logrus v1.6.0/go.mod h1:7uNnSEd1DgxDLC74fIahvMZmmYsHGZGEOFrfsX/uA88=

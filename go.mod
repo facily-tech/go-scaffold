@@ -27,7 +27,7 @@ require (
 require (
 	github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a
 	github.com/facily-tech/go-core/env v0.1.0
-	github.com/facily-tech/go-core/http v0.1.0
+	github.com/facily-tech/go-core/http v0.1.2
 	github.com/facily-tech/go-core/log v0.1.0
 	github.com/golang/mock v1.6.0
 )

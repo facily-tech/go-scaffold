@@ -111,8 +111,8 @@ github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a h1:dGdtpIbViHu
 github.com/facily-tech/go-core v0.0.0-20211209234839-eacb756b6d1a/go.mod h1:QEdNmw5Svz6pGimSwTtPCrcLIruEgb/S24PRhUXbq0s=
 github.com/facily-tech/go-core/env v0.1.0 h1:0wkuJMXW4UY46Llf1JDug3+kpCA/5ANAsyO/BbHAAnU=
 github.com/facily-tech/go-core/env v0.1.0/go.mod h1:yZrLG8F9utoEkJChd3ORgCSkMUsoaSNjJ34/DjCUFaw=
-github.com/facily-tech/go-core/http v0.1.0 h1:WcQXDD4vRTVPg+GlybbQt90lRA7JXMxRFeHyp5KVf5U=
-github.com/facily-tech/go-core/http v0.1.0/go.mod h1:kpkZXXLroBWbIpXf63cpsjYr19HsvZq/XzQ9gDf2Vig=
+github.com/facily-tech/go-core/http v0.1.2 h1:PRvmdP821bp47NDyIlfNBYHOF0LyfwR2QHHhlcz/7Q8=
+github.com/facily-tech/go-core/http v0.1.2/go.mod h1:kpkZXXLroBWbIpXf63cpsjYr19HsvZq/XzQ9gDf2Vig=
 github.com/facily-tech/go-core/log v0.1.0 h1:4YJ5W14s4Mx/HwW3XWRwF0HntJtLbO4GQXvjOTdGTHw=
 github.com/facily-tech/go-core/log v0.1.0/go.mod h1:WYVdsRqcYBb4v49E8wRFX58Z72t5wWIYatp4i7sty24=
 github.com/facily-tech/go-core/telemetry v0.3.0/go.mod h1:Qnuu0FQynT5cHIgferYfuPr08cPtUL5JXfFWrjZi2UU=

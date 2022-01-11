@@ -4,6 +4,8 @@ import (
 	"context"
 	"net/http"
 
+	coreMiddleware "github.com/facily-tech/go-core/http/server/middleware"
+
 	"github.com/facily-tech/go-scaffold/internal/container"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	"github.com/go-chi/chi/v5"
@@ -14,8 +16,8 @@ import (
 func Handler(ctx context.Context, dep *container.Dependency) http.Handler {
 	r := chi.NewMux()
 
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
+	r.Use(coreMiddleware.Logger(dep.Components.Log))
+	r.Use(coreMiddleware.Recoverer(dep.Components.Log))
 	r.Use(middleware.RequestID)
 	r.Use(dep.Components.Tracer.Middleware)
 

@@ -5,12 +5,12 @@ import (
 	"log"
 	"time"
 
-	scaffolding "github.com/facily-tech/go-scaffold"
+	"github.com/facily-tech/go-core/env"
+	apiServer "github.com/facily-tech/go-core/http/server"
+	"github.com/facily-tech/go-core/types"
 	"github.com/facily-tech/go-scaffold/internal/api"
 	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/internal/container"
-	apiServer "github.com/facily-tech/go-scaffold/pkg/core/http/server"
-	"github.com/facily-tech/go-scaffold/pkg/core/types"
 
 	_ "github.com/golang/mock/mockgen/model"
 )
@@ -22,17 +22,20 @@ func main() {
 	ctx = context.WithValue(ctx, types.ContextKey(types.Version), config.NewVersion())
 	ctx = context.WithValue(ctx, types.ContextKey(types.StartedAt), time.Now())
 
-	ctx, dep, err := container.New(ctx, scaffolding.Embeds)
+	ctx, dep, err := container.New(ctx)
 	if err != nil {
 		log.Fatal(err) // log might not be started and because of that dep might not exist
 	}
 
+	apiConfig := apiServer.Config{}
+	err = env.LoadEnv(ctx, &apiConfig, apiServer.PrefixConfig)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	apiServer.Run(
 		ctx,
-		apiServer.Config{
-			Addr:             dep.Components.Viper.GetString("API_HOST_PORT"),
-			GracefulDuration: dep.Components.Viper.GetDuration("API_GRACEFUL_WAIT_TIME"),
-		},
+		apiConfig,
 		api.Handler(ctx, dep),
 		dep.Components.Log,
 	)

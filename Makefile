@@ -44,4 +44,8 @@ stress:
 
 .PHONY: build-dep
 build-dep:
-	@go install github.com/golang/mock/mockgen@v1.5.0	
+	@go install github.com/golang/mock/mockgen@v1.5.0
+
+.PHONY: hot
+hot:
+	@air	

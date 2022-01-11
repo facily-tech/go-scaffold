@@ -9,3 +9,15 @@ A simple golang scaffolding to help me to create new api projects or workers wit
 ## Code flow
 
 ![alt text](./docs/assets/architecture.drawio.svg)
+
+## Development
+
+How to develop with this project.
+
+### VS Code and Remote-Control Plugin
+
+1. Install Remote-Control plugin on VS Code.
+2. copy file ./env/application.env.sample to ./env/application.env
+3. Reopen in Container mode, like [this](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+

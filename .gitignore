@@ -26,3 +26,5 @@ bin/
 .editorconfig
 
 *_mock.go
+
+tmp

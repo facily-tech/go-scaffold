@@ -16,10 +16,10 @@ import (
 func Handler(ctx context.Context, dep *container.Dependency) http.Handler {
 	r := chi.NewMux()
 
-	r.Use(coreMiddleware.Logger(dep.Components.Log))
-	r.Use(coreMiddleware.Recoverer(dep.Components.Log))
-	r.Use(middleware.RequestID)
-	r.Use(dep.Components.Tracer.Middleware)
+	r.Use(dep.Components.Tracer.Middleware)             // must be first
+	r.Use(middleware.RequestID)                         // must be second
+	r.Use(coreMiddleware.Logger(dep.Components.Log))    // must be third
+	r.Use(coreMiddleware.Recoverer(dep.Components.Log)) // must be forty
 
 	r.Handle("/metrics", promhttp.Handler())
 

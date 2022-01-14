@@ -1,5 +1,5 @@
 /*
-	Scffolding Package
+Package scaffolding is a template for new projects
 */
 package scaffolding
 

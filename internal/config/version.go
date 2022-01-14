@@ -14,6 +14,4 @@ func NewVersion() *Version {
 	}
 }
 
-var (
-	ErrVersionTypeAssertion = errors.New("cannot type assert version interface{} -> *config.Version")
-)
+var ErrVersionTypeAssertion = errors.New("cannot type assert version interface{} -> *config.Version")

@@ -13,11 +13,11 @@ const (
 )
 
 var (
-	// ErrNew represents an error when creating a new Quote
+	// ErrNew represents an error when creating a new Quote.
 	ErrNew = errors.New("unable to create new quote")
-	// ErrEmptyRepository repository cannot be nil
+	// ErrEmptyRepository repository cannot be nil.
 	ErrEmptyRepository = errors.New("empty repository")
-	// ErrTypeAssertion arises while trying to perform interface{}.(T)
+	// ErrTypeAssertion arises while trying to perform interface{}.(T).
 	ErrTypeAssertion = errors.New("unable to execute type assertion")
 )
 

@@ -33,9 +33,7 @@ func NewService(repository RepositoryI, log log.Logger) (*Service, error) {
 
 func (s *Service) FindByID(ctx context.Context, id uuid.UUID) (Quote, error) {
 	quote, err := s.repository.FindByID(ctx, id)
-
 	if err != nil {
-
 		return quote, errors.Wrap(err, "service failed to find by ID")
 	}
 
@@ -44,7 +42,6 @@ func (s *Service) FindByID(ctx context.Context, id uuid.UUID) (Quote, error) {
 
 func (s *Service) Upsert(ctx context.Context, q *Quote) error {
 	if err := s.repository.Upsert(ctx, q); err != nil {
-
 		return errors.Wrap(err, "service failed to upsert")
 	}
 
@@ -53,7 +50,6 @@ func (s *Service) Upsert(ctx context.Context, q *Quote) error {
 
 func (s *Service) Delete(ctx context.Context, id uuid.UUID) error {
 	if err := s.repository.Delete(ctx, id); err != nil {
-
 		return errors.Wrap(err, "service failed to delete")
 	}
 

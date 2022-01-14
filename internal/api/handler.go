@@ -1,3 +1,6 @@
+/*
+Package api handles api requests
+*/
 package api
 
 import (
@@ -12,6 +15,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+// Handler holde the API Framework setup and route handle.
 func Handler(ctx context.Context, dep *container.Dependency) http.Handler {
 	r := chi.NewMux()
 

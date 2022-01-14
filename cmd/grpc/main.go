@@ -49,7 +49,6 @@ func run(ctx context.Context, dep *container.Dependency) {
 
 	grpcConfig := grpcConfig{}
 	err := env.LoadEnv(ctx, &grpcConfig, grpcPrefixConfig)
-
 	if err != nil {
 		dep.Components.Log.Error(
 			ctx,

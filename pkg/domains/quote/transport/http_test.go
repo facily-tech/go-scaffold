@@ -74,6 +74,7 @@ func Test_decodeFindRequest(t *testing.T) {
 			init: func(r *stdHTTP.Request) *stdHTTP.Request {
 				chiCtx := chi.NewRouteContext()
 				chiCtx.URLParams.Add("id", id.String())
+
 				return r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, chiCtx))
 			},
 			want: quote.FindByIDRequest{ID: id},
@@ -115,6 +116,7 @@ func Test_decodeDeleteRequest(t *testing.T) {
 			init: func(r *stdHTTP.Request) *stdHTTP.Request {
 				chiCtx := chi.NewRouteContext()
 				chiCtx.URLParams.Add("id", id.String())
+
 				return r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, chiCtx))
 			},
 			want: quote.DeleteRequest{ID: id},

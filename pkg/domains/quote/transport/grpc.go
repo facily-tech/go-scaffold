@@ -63,6 +63,7 @@ func (s *grpcServer) Delete(ctx context.Context, req *pb.DeleteRequest) (*pb.Err
 	if err != nil {
 		return nil, err
 	}
+
 	return &pb.Error{}, nil
 }
 

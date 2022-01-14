@@ -26,14 +26,17 @@ func NewCountMetric(quoteService ServiceI, counter prometheus.Counter) *CountMet
 }
 
 func (mw *CountMetric) FindByID(ctx context.Context, id uuid.UUID) (Quote, error) {
+
 	return mw.next.FindByID(ctx, id)
 }
 
 func (mw *CountMetric) Upsert(ctx context.Context, q *Quote) error {
 	defer mw.count.Inc()
+
 	return mw.next.Upsert(ctx, q)
 }
 
 func (mw *CountMetric) Delete(ctx context.Context, id uuid.UUID) error {
+
 	return mw.next.Delete(ctx, id)
 }

@@ -14,6 +14,7 @@ import (
 func createCounter(t *testing.T) (*ServiceI_Mock, prometheus.Counter) {
 	service := NewServiceI_Mock(t)
 	registry := prometheus.NewRegistry()
+
 	return service, promauto.With(registry).NewCounter(
 		prometheus.CounterOpts{
 			Name: UpsertMetricName,

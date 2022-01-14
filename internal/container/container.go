@@ -14,7 +14,7 @@ import (
 )
 
 // Components are a like service, but it doesn't include business case
-// Or domains, but likely used by multiple domains
+// Or domains, but likely used by multiple domains.
 type components struct {
 	Log    log.Logger
 	Tracer telemetry.Tracer
@@ -22,7 +22,7 @@ type components struct {
 }
 
 // Services hold the business case, and make the bridge between
-// Controllers and Domains
+// Controllers and Domains.
 type Services struct {
 	Quote quote.ServiceI
 	// Include your new services bellow
@@ -43,7 +43,6 @@ func New(ctx context.Context) (context.Context, *Dependency, error) {
 		quote.NewRepository(cmp.Log),
 		cmp.Log,
 	)
-
 	if err != nil {
 		return nil, nil, err
 	}
@@ -83,7 +82,6 @@ func setupComponents(ctx context.Context) (*components, error) {
 	}
 
 	tracer, err := telemetry.NewDataDog(telemetryConfig)
-
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +91,6 @@ func setupComponents(ctx context.Context) (*components, error) {
 		DisableStackTrace: true,
 		Tracer:            tracer,
 	})
-
 	if err != nil {
 		return nil, err
 	}

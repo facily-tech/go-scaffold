@@ -98,6 +98,7 @@ func decodeGRPCUpsertRequest(_ context.Context, grpcReq interface{}) (interface{
 
 func encodeGRPCUpsertResponse(_ context.Context, grpcResp interface{}) (interface{}, error) {
 	resp := grpcResp.(quote.JSONResponse)
+
 	return quote.JSONResponse{ID: resp.ID, Content: resp.Content, Error: resp.Error}, nil
 }
 

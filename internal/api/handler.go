@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	coreMiddleware "github.com/facily-tech/go-core/http/server/middleware"
-
 	"github.com/facily-tech/go-scaffold/internal/container"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	"github.com/go-chi/chi/v5"

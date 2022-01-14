@@ -68,6 +68,7 @@ func Upsert(svc ServiceI) endpoint.Endpoint {
 }
 
 func DeleteByID(svc ServiceI) endpoint.Endpoint {
+
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req, ok := request.(DeleteRequest)
 		if !ok {
@@ -76,6 +77,7 @@ func DeleteByID(svc ServiceI) endpoint.Endpoint {
 
 		// nothing doing anything with error for now
 		_ = svc.Delete(ctx, req.ID)
+
 		return nil, nil
 	}
 }

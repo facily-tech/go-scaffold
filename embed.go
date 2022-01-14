@@ -1,3 +1,6 @@
+/*
+	Scffolding Package
+*/
 package scaffolding
 
 import "embed"

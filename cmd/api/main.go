@@ -11,7 +11,6 @@ import (
 	"github.com/facily-tech/go-scaffold/internal/api"
 	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/internal/container"
-
 	_ "github.com/golang/mock/mockgen/model"
 )
 

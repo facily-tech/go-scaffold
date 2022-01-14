@@ -16,10 +16,9 @@ import (
 	"github.com/facily-tech/go-scaffold/internal/container"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	pb "github.com/facily-tech/proto-examples/go-scaffold/build/go/quote"
+	_ "github.com/golang/mock/mockgen/model"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-
-	_ "github.com/golang/mock/mockgen/model"
 )
 
 func main() {
@@ -57,6 +56,7 @@ func run(ctx context.Context, dep *container.Dependency) {
 			"Unable to load config",
 			coreLog.Error(err),
 		)
+
 		return
 	}
 
@@ -68,6 +68,7 @@ func run(ctx context.Context, dep *container.Dependency) {
 			coreLog.Any("SERVER_BIND", grpcConfig.ServerBind),
 			coreLog.Error(err),
 		)
+
 		return
 	}
 
@@ -77,7 +78,16 @@ func run(ctx context.Context, dep *container.Dependency) {
 		coreLog.Any("SERVER_BIND", grpcConfig.ServerBind),
 	)
 
-	defer server.Close()
+	defer func() {
+		if err := server.Close(); err != nil {
+			dep.Components.Log.Error(
+				ctx,
+				"fail to close server",
+				coreLog.Error(err),
+			)
+		}
+	}()
+
 	grpcServer := grpc.NewServer()
 	pb.RegisterQuoteServiceServer(grpcServer, transport.NewGRPCServer(dep.Services.Quote))
 	reflection.Register(grpcServer)

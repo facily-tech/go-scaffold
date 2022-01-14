@@ -3,7 +3,6 @@ package quote
 import (
 	"context"
 	"database/sql"
-
 	"sync"
 
 	"github.com/facily-tech/go-core/log"

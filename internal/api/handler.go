@@ -22,6 +22,7 @@ func Handler(ctx context.Context, dep *container.Dependency) http.Handler {
 	r.Use(coreMiddleware.Recoverer(dep.Components.Log)) // must be forty
 
 	r.Handle("/metrics", promhttp.Handler())
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {})
 
 	quoteHandler := transport.NewHTTPHandler(dep.Services.Quote)
 	r.Mount("/v1/quote", quoteHandler)

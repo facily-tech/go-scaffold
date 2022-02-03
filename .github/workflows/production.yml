@@ -14,7 +14,7 @@ jobs:
       ## Substituir os valores entre <>. Exemplo: Sou da tribo de core-commerce, substituir <tribe> por core-commerce
       tribe: <tribe>
       squad: <squad>
-      vault-secret-path: <tribe/squad/service>
+      vault-secret-path: production/<tribe/squad/service>
       environment: production
       container-port: 8080
       probe-readiness-path: /health

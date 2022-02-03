@@ -40,8 +40,9 @@ FROM alpine as runner
 WORKDIR /app
 
 COPY run.sh .
-
 COPY --from=builder /api/bin/api .
+RUN chmod +x /app/run.sh
+
 EXPOSE 8080
 
 ENTRYPOINT /app/run.sh /app/api

@@ -37,9 +37,12 @@ RUN make build
 ## Runner image for prod
 
 FROM alpine as runner
-WORKDIR /go/bin
+WORKDIR /app
 
+COPY run.sh .
 COPY --from=builder /api/bin/api .
+RUN chmod +x /app/run.sh
+
 EXPOSE 8080
 
-ENTRYPOINT /go/bin/api
+ENTRYPOINT /app/run.sh /app/api

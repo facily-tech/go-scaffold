@@ -1,0 +1,34 @@
+name: Build and Deploy - Production
+
+on:
+  workflow_dispatch:
+## Deve remover o comentário abaixo para disparar o fluxo através de commits
+#  push:
+#    branches:
+#      - main
+
+jobs:
+  deploy_on_k8s:
+    uses: facily-tech/actions-reusable-workflows/.github/workflows/deploy-backend-api-argocd.yml@v1
+    with:
+      ## Substituir os valores entre <>. Exemplo: Sou da tribo de core-commerce, substituir <tribe> por core-commerce
+      tribe: <tribe>
+      squad: <squad>
+      vault-secret-path: <tribe/squad/service>
+      environment: production
+      container-port: 8080
+      probe-readiness-path: /health
+      probe-liveness-path: /health
+      github-sha: ${{ github.sha }}
+      repository-name: ${{ github.event.repository.name }}      
+      application-name: ${{ github.event.repository.name }}
+      application-domain: ${{ github.event.repository.name }}.faci.ly
+    secrets:
+      docker-build-extra-args: '-f build/Dockerfile'
+      github-org: ${{ secrets.FACILY_ORG }}
+      docker-registry: ${{ secrets.DOCKER_REGISTRY_PRODUCTION }}
+      facily-github-token: ${{ secrets.FACILY_GITHUB_TOKEN }}
+      ecr-aws-region: ${{ secrets.AWS_DEFAULT_REGION_PRODUCTION }}
+      ecr-aws-role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_PRODUCTION }}
+      k8s-aws-region: ${{ secrets.AWS_DEFAULT_REGION_DEVOPSPROD }}
+      k8s-role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_DEVOPSPROD }}

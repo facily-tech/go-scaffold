@@ -20,3 +20,5 @@ How to develop with this project.
 2. copy file ./env/application.env.sample to ./env/application.env
 3. Reopen in Container mode, like [this](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 4. Run the command `make hot`, for start with hot reload or on main.go file opened debug with pressing "f5".
+
+teste...

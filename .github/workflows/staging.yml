@@ -5,7 +5,7 @@ on:
 
 jobs:
   deploy_on_k8s:
-    uses: facily-tech/actions-reusable-workflows/.github/workflows/deploy-backend-api-argocd.yml@v1
+    uses: facily-tech/actions-reusable-workflows/.github/workflows/deploy-backend-api-argocd.yml@v6
     with:
       ## Substituir os valores entre <>. Exemplo: Sou da tribo de core-commerce, substituir <tribe> por core-commerce
       tribe: <tribe>
@@ -16,7 +16,7 @@ jobs:
       probe-readiness-path: /health
       probe-liveness-path: /health
       github-sha: ${{ github.sha }}
-      repository-name: ${{ github.event.repository.name }}      
+      repository-name: ${{ github.event.repository.name }}
       application-name: ${{ github.event.repository.name }}
       application-domain: ${{ github.event.repository.name }}.staging.faci.ly
     secrets:
@@ -28,3 +28,5 @@ jobs:
       ecr-aws-role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_STAGING }}
       k8s-aws-region: ${{ secrets.AWS_DEFAULT_REGION_DEVOPSPROD }}
       k8s-role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_DEVOPSPROD }}
+      argocd-username: ${{ secrets.ARGOCD_USERNAME }}
+      argocd-password: ${{ secrets.ARGOCD_PASSWORD }}

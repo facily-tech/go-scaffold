@@ -6,6 +6,10 @@ LD_FLAGS=-ldflags="-X $(MODULE_NAME)/internal/config.gitCommitHash=$(GIT_COMMIT_
 lint:
 	@golangci-lint run
 
+.PHONY: lint-fix
+lint-fix:
+	@golangci-lint run --fix
+
 .PHONY: api
 api:
 	@go run $(LD_FLAGS) cmd/api/main.go 

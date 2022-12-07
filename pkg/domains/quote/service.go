@@ -3,7 +3,7 @@ package quote
 import (
 	"context"
 
-	"github.com/facily-tech/go-core/log"
+	"github.com/<REPO>/go-core/log"
 	"github.com/google/uuid"
 )
 

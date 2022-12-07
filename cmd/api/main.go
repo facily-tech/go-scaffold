@@ -5,12 +5,12 @@ import (
 	"log"
 	"time"
 
-	"github.com/facily-tech/go-core/env"
-	apiServer "github.com/facily-tech/go-core/http/server"
-	"github.com/facily-tech/go-core/types"
-	"github.com/facily-tech/go-scaffold/internal/api"
-	"github.com/facily-tech/go-scaffold/internal/config"
-	"github.com/facily-tech/go-scaffold/internal/container"
+	"github.com/<REPO>/go-core/env"
+	apiServer "github.com/<REPO>/go-core/http/server"
+	"github.com/<REPO>/go-core/types"
+	"github.com/<REPO>/go-scaffold/internal/api"
+	"github.com/<REPO>/go-scaffold/internal/config"
+	"github.com/<REPO>/go-scaffold/internal/container"
 
 	_ "github.com/golang/mock/mockgen/model"
 )

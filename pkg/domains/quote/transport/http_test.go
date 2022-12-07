@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
+	"github.com/<REPO>/go-scaffold/pkg/domains/quote"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"

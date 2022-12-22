@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - feat/sonar # or the name of your main branch, trigger 1
+      - feat/sonar # or the name of your main branch, trigger
 jobs:
   build:
     name: Build
-    runs-on: devopsprod-runner
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:

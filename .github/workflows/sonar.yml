@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - feat/sonar # or the name of your main branch
+      - feat/sonar # or the name of your main branch, trigger 1
 jobs:
   build:
     name: Build

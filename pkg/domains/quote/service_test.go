@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/<REPO>/go-core/log"
+	"github.com/facily-tech/go-core/log"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )

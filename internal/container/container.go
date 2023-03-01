@@ -3,12 +3,12 @@ package container
 import (
 	"context"
 
-	"github.com/<REPO>/go-core/env"
-	"github.com/<REPO>/go-core/log"
-	"github.com/<REPO>/go-core/telemetry"
-	"github.com/<REPO>/go-core/types"
-	"github.com/<REPO>/go-scaffold/internal/config"
-	"github.com/<REPO>/go-scaffold/pkg/domains/quote"
+	"github.com/facily-tech/go-core/env"
+	"github.com/facily-tech/go-core/log"
+	"github.com/facily-tech/go-core/telemetry"
+	"github.com/facily-tech/go-core/types"
+	"github.com/facily-tech/go-scaffold/internal/config"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 )

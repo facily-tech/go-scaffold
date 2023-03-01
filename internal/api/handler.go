@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/http"
 
-	coreMiddleware "github.com/<REPO>/go-core/http/server/middleware"
+	coreMiddleware "github.com/facily-tech/go-core/http/server/middleware"
 
-	"github.com/<REPO>/go-scaffold/internal/container"
-	"github.com/<REPO>/go-scaffold/pkg/domains/quote/transport"
+	"github.com/facily-tech/go-scaffold/internal/container"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"

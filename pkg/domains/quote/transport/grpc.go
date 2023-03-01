@@ -3,8 +3,8 @@ package transport
 import (
 	"context"
 
-	"github.com/<REPO>/go-scaffold/pkg/domains/quote"
-	pb "github.com/<REPO>/proto-examples/go-scaffold/build/go/quote"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
+	pb "github.com/facily-tech/proto-examples/go-scaffold/build/go/quote"
 	grpctransport "github.com/go-kit/kit/transport/grpc"
 	"github.com/google/uuid"
 )

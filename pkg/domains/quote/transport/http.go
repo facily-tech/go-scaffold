@@ -6,7 +6,7 @@ import (
 	"log"
 	stdHTTP "net/http"
 
-	"github.com/<REPO>/go-scaffold/pkg/domains/quote"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-kit/kit/transport/http"
 	"github.com/google/uuid"

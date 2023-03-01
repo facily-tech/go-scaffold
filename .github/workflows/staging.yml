@@ -5,7 +5,7 @@ on:
 
 jobs:
   deploy_on_k8s:
-    uses: <REPO>/actions-reusable-workflows/.github/workflows/deploy-backend-api-argocd.yml@v1
+    uses: facily-tech/actions-reusable-workflows/.github/workflows/deploy-backend-api-argocd.yml@v1
     with:
       ## Substituir os valores entre <>. Exemplo: Sou da tribo de core-commerce, substituir <tribe> por core-commerce
       tribe: <tribe>
@@ -18,12 +18,12 @@ jobs:
       github-sha: ${{ github.sha }}
       repository-name: ${{ github.event.repository.name }}      
       application-name: ${{ github.event.repository.name }}
-      application-domain: ${{ github.event.repository.name }}.staging.dummy.com
+      application-domain: ${{ github.event.repository.name }}.staging.faci.ly
     secrets:
       docker-build-extra-args: '-f build/Dockerfile'
-      github-org: ${{ secrets.dummy_ORG }}
+      github-org: ${{ secrets.FACILY_ORG }}
       docker-registry: ${{ secrets.DOCKER_REGISTRY_STAGING }}
-      github-token: ${{ secrets.dummy_GITHUB_TOKEN }}
+      facily-github-token: ${{ secrets.FACILY_GITHUB_TOKEN }}
       ecr-aws-region: ${{ secrets.AWS_DEFAULT_REGION_STAGING }}
       ecr-aws-role-to-assume: ${{ secrets.AWS_GITHUB_ROLE_STAGING }}
       k8s-aws-region: ${{ secrets.AWS_DEFAULT_REGION_DEVOPSPROD }}

@@ -5,12 +5,12 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/<REPO>/go-core/log"
+	"github.com/facily-tech/go-core/log"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
-var testQuote Quote = Quote{ID: uuid.New(), Content: "IRC is just multiplayer notepad."}
+var testQuote = Quote{ID: uuid.New(), Content: "IRC is just multiplayer notepad."}
 
 func TestNewService(t *testing.T) {
 	l, err := log.NewLoggerZap(log.ZapConfig{})

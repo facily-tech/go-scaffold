@@ -1,9 +1,9 @@
-module github.com/<REPO>/go-scaffold
+module github.com/facily-tech/go-scaffold
 
 go 1.17
 
 require (
-	github.com/<REPO>/proto-examples v0.0.0-20210923105515-159fc8ce6721
+	github.com/facily-tech/proto-examples v0.0.0-20210923105515-159fc8ce6721
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-kit/kit v0.11.0
 	github.com/google/uuid v1.3.0
@@ -24,11 +24,11 @@ require (
 )
 
 require (
-	github.com/<REPO>/go-core/env v0.1.0
-	github.com/<REPO>/go-core/http v0.2.0
-	github.com/<REPO>/go-core/log v0.2.0
-	github.com/<REPO>/go-core/telemetry v0.4.0
-	github.com/<REPO>/go-core/types v0.1.1
+	github.com/facily-tech/go-core/env v0.1.0
+	github.com/facily-tech/go-core/http v0.2.0
+	github.com/facily-tech/go-core/log v0.2.0
+	github.com/facily-tech/go-core/telemetry v0.4.0
+	github.com/facily-tech/go-core/types v0.1.1
 	github.com/golang/mock v1.6.0
 )
 

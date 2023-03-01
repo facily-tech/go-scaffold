@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/http"
 
-	coreMiddleware "github.com/<REPO>/go-core/http/server/middleware"
+	coreMiddleware "github.com/facily-tech/go-core/http/server/middleware"
 
-	"github.com/<REPO>/go-scaffold/internal/container"
-	"github.com/<REPO>/go-scaffold/pkg/domains/quote/transport"
+	"github.com/facily-tech/go-scaffold/internal/container"
+	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -22,10 +22,7 @@ func Handler(ctx context.Context, dep *container.Dependency) http.Handler {
 	r.Use(coreMiddleware.Recoverer(dep.Components.Log)) // must be forty
 
 	r.Handle("/metrics", promhttp.Handler())
-	r.Get("/health", fun(c *gin.Context) {
-		c.JSON(200, gin.H{
-		  "status": "UP",
-		})
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {})
 
 	quoteHandler := transport.NewHTTPHandler(dep.Services.Quote)
 	r.Mount("/v1/quote", quoteHandler)

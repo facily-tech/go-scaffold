@@ -5,11 +5,11 @@ import (
 	"log"
 	"time"
 
+	"github.com/carlmjohnson/versioninfo"
 	"github.com/facily-tech/go-core/env"
 	apiServer "github.com/facily-tech/go-core/http/server"
 	"github.com/facily-tech/go-core/types"
 	"github.com/facily-tech/go-scaffold/internal/api"
-	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/internal/container"
 
 	_ "github.com/golang/mock/mockgen/model"
@@ -19,7 +19,7 @@ func main() {
 	// root context of application
 	ctx := context.Background()
 
-	ctx = context.WithValue(ctx, types.ContextKey(types.Version), config.NewVersion())
+	ctx = context.WithValue(ctx, types.ContextKey(types.Version), versioninfo.Revision)
 	ctx = context.WithValue(ctx, types.ContextKey(types.StartedAt), time.Now())
 
 	ctx, dep, err := container.New(ctx)

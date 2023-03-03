@@ -24,6 +24,7 @@ require (
 )
 
 require (
+	github.com/carlmjohnson/versioninfo v0.22.4
 	github.com/facily-tech/go-core/env v0.1.0
 	github.com/facily-tech/go-core/http v0.2.0
 	github.com/facily-tech/go-core/log v0.2.0

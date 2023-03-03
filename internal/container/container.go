@@ -3,11 +3,10 @@ package container
 import (
 	"context"
 
+	"github.com/carlmjohnson/versioninfo"
 	"github.com/facily-tech/go-core/env"
 	"github.com/facily-tech/go-core/log"
 	"github.com/facily-tech/go-core/telemetry"
-	"github.com/facily-tech/go-core/types"
-	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -68,32 +67,21 @@ func New(ctx context.Context) (context.Context, *Dependency, error) {
 }
 
 func setupComponents(ctx context.Context) (*components, error) {
-	version, ok := ctx.Value(types.ContextKey(types.Version)).(*config.Version)
-	if !ok {
-		return nil, config.ErrVersionTypeAssertion
-	}
-
-	telemetryConfig := telemetry.DataDogConfig{
-		Version: version.GitCommitHash,
-	}
-
-	err := env.LoadEnv(ctx, &telemetryConfig, telemetry.DataDogConfigPrefix)
+	tracer, err := telemetry.NewNewRelic()
 	if err != nil {
 		return nil, err
 	}
 
-	tracer, err := telemetry.NewDataDog(telemetryConfig)
-
-	if err != nil {
-		return nil, err
-	}
-
-	l, err := log.NewLoggerZap(log.ZapConfig{
-		Version:           version.GitCommitHash,
+	logConfig := log.ZapConfig{
+		Version:           versioninfo.Revision,
 		DisableStackTrace: true,
 		Tracer:            tracer,
-	})
+	}
+	if err := env.LoadEnv(ctx, &logConfig, ""); err != nil {
+		return nil, err
+	}
 
+	l, err := log.NewLoggerZap(logConfig)
 	if err != nil {
 		return nil, err
 	}

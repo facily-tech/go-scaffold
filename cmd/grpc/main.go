@@ -9,10 +9,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/carlmjohnson/versioninfo"
 	"github.com/facily-tech/go-core/env"
 	coreLog "github.com/facily-tech/go-core/log"
 	"github.com/facily-tech/go-core/types"
-	"github.com/facily-tech/go-scaffold/internal/config"
 	"github.com/facily-tech/go-scaffold/internal/container"
 	"github.com/facily-tech/go-scaffold/pkg/domains/quote/transport"
 	pb "github.com/facily-tech/proto-examples/go-scaffold/build/go/quote"
@@ -26,7 +26,7 @@ func main() {
 	// root context of application
 	ctx := context.Background()
 
-	ctx = context.WithValue(ctx, types.ContextKey(types.Version), config.NewVersion())
+	ctx = context.WithValue(ctx, types.ContextKey(types.Version), versioninfo.Revision)
 	ctx = context.WithValue(ctx, types.ContextKey(types.StartedAt), time.Now())
 
 	ctx, dep, err := container.New(ctx)

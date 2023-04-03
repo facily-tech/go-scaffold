@@ -17,6 +17,7 @@ How to develop with this project.
 ### VS Code and Remote Containers Plugin
 
 1. Install [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) plugin on VS Code.
-2. Copy file `./env/application.env.sample` to `./env/application.env`
-3. Reopen in Container mode: on Command Palette run `Remote-Containers: Open Folder in Container...` and select the local folder.
-4. Run the command `make hot`, for start with hot reload or on main.go file opened debug with pressing "f5".
+2. Make sure that docker-compose version 1.29.2 and go version 1.17.4 are installed.   
+3. Copy file `./env/application.env.sample` to `./env/application.env`
+4. Reopen in Container mode: on Command Palette run `Remote-Containers: Open Folder in Container...` and select the local folder.
+5. Run the command `make hot`, for start with hot reload or on main.go file opened debug with pressing "f5".
